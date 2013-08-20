@@ -1,0 +1,9 @@
+.logos {
+    display: block;
+    float: right;
+    min-width: 150px;
+}
+.logos:hover{
+    cursor: pointer;
+    cursor: hand;
+}

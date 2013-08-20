@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="/static/kinetic.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/jquery.json-2.4.min.js"></script>
+</head>
+
+<body>
+    <h4>Click and drag:</h4>
+    <h4>more headings</h4>
+    <div id="container"></div>
+
+    <button class='save_button'>submit &amp; show averages</button>
+
+    <script>
+        var total_width = 800;
+        var total_height = 600;
+        var grid_width = 600;
+
+        $(document).ready(function() {
+
+            $('.save_button').click(function(){
+                var data = [];
+                var c_ids = [];
+
+                for (var i = 0; i < companies.length; i++) {
+                    if (companies[i].getX() < grid_width) {
+                        data.push( { "x": companies[i].getX(), "y": companies[i].getY(), "c": String(companies[i].getId()) } );
+                        c_ids.push(String(companies[i].getId()));
+                    }
+                }
+
+                // Save these positions
+                $.ajax ({
+                    type: "POST",
+                    url: '/data/',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: $.toJSON(data),
+                }).done(function(result) {
+
+                    // Positions saved. Now load the averages
+                    $.ajax ({
+                        type: "POST",
+                        url: '/averages/',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: $.toJSON(c_ids),
+                    }).done(function(result2) {
+                        display_averages( result2 );
+                    });
+
+                });
+            });
+            function display_averages(data) {
+                var results = data['result'];
+                average_layer.remove();
+                average_layer = new Kinetic.Layer();
+
+                for (var i = 0; i < results.length; i++) {
+                    var c = null;
+                    if (results[i]._id == 1) {
+                        c = build_company_group(30, 'Dropbox Average', 1, true);
+                    } else if (results[i]._id == 2) {
+                        c = build_company_group(60, 'Microsoft Average', 2, true);
+                    }
+                    if (c != null) {
+                        c.setX(results[i].avgx);
+                        c.setY(results[i].avgy);
+                        average_layer.add(c);
+                    }
+                }
+                stage.add(average_layer);
+
+            }
+            var average_layer = new Kinetic.Layer();
+
+        });
+
+        var companies = [];
+        var stage;
+
+        function build_company_group(y, c_name, c_id, is_average) {
+            var group = new Kinetic.Group({
+                x: grid_width + 30,
+                y: y,
+                draggable: !is_average,
+                id: c_id,
+            });
+
+            var star = new Kinetic.Star({
+                x: 0,
+                y: 0,
+                numPoints: 6,
+                innerRadius: 4,
+                outerRadius: 10,
+                fill: '#00D2FF',
+                stroke: 'black',
+                strokeWidth: 1,
+            });
+            var simpleText = new Kinetic.Text({
+                x: 10,
+                y: -10,
+                text: c_name,
+                fontSize: 20,
+                fontFamily: 'Calibri',
+                fill: 'blue'
+            });
+            group.add(star);
+            group.add(simpleText);
+
+            group.on('mouseover', function() {
+                document.body.style.cursor = 'pointer';
+            });
+            group.on('mouseout', function() {
+                document.body.style.cursor = 'default';
+            });
+            return group;
+        }
+
+        function build_background(layer, stage_width, stage_height) {
+            var grid_background = new Kinetic.Rect({
+                x: 0,
+                y: 0,
+                width: total_width,
+                height: total_height,
+                fill: 'lightgreen',
+                stroke: 'black',
+                strokeWidth: 2
+            });
+            layer.add(grid_background);
+            var grid_background = new Kinetic.Rect({
+                x: grid_width,
+                y: 0,
+                width: total_width - grid_width,
+                height: total_height,
+                fill: 'gray',
+                stroke: 'black',
+                strokeWidth: 2
+            });
+            layer.add(grid_background);
+        }
+
+        stage = new Kinetic.Stage({
+            container: 'container',
+            width: total_width,
+            height: total_height,
+        });
+        var layer = new Kinetic.Layer();
+
+        // yuck!
+        build_background(layer, stage.getWidth(), stage.getHeight());
+
+        var c = build_company_group(30, 'Dropbox', 1, false);
+        companies.push(c);
+        layer.add(c);
+
+        var c = build_company_group(60, 'Microsoft', 2, false);
+        companies.push(c);
+        layer.add(c);
+
+        stage.add(layer);
+    </script>
+</body>
+</html>
