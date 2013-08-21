@@ -1,22 +1,95 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <script src="/static/kinetic.min.js"></script>
+    <script src="kinetic.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
     <script src="/static/jquery.json-2.4.min.js"></script>
 </head>
 
 <body>
-    <h4>Click and drag:</h4>
-    <h4>more headings</h4>
-    <div id="container"></div>
+   <div id="container"></div>
 
     <button class='save_button'>submit &amp; show averages</button>
 
     <script>
-        var total_width = 800;
-        var total_height = 600;
-        var grid_width = 600;
+        var total_width = 600;
+        var total_height = 500;
+        var grid_width = 400;
+        var grid_height = 400;
+
+         var rectangles = [{
+           
+            name: "ebay",
+            image: null,
+            x: 100,
+            y: 40,
+            width: 200,
+            height: 137,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+
+        }, {
+        
+            name: "Facebook",
+            image: null,
+            x: 250,
+            y: 55,
+            width: 93,
+            height: 104,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+        
+        }, {
+
+            name: "Twitter",
+            image: null,
+            x: 350,
+            y: 55,
+            width: 93,
+            height: 104,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+
+        }, {
+
+            name: "Dropbox",
+            image: null,
+            x: 450,
+            y: 55,
+            width: 93,
+            height: 104,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+        
+        }, {
+        
+            name: "Amazon",
+            image: null,
+            x: 550,
+            y: 55,
+            width: 93,
+            height: 104,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+        
+        } , {
+
+            name: "Gmail",
+            image: null,
+            x: 50,
+            y: 55,
+            width: 93,
+            height: 104,
+            dragging: false,
+            offsetX: 0,
+            offsetY: 0,
+        
+        }];
 
         $(document).ready(function() {
 
@@ -63,7 +136,9 @@
                     if (results[i]._id == 1) {
                         c = build_company_group(30, 'Dropbox Average', 1, true);
                     } else if (results[i]._id == 2) {
-                        c = build_company_group(60, 'Microsoft Average', 2, true);
+                        c = build_company_group(60, 'Facebook Average', 2, true);
+                    } else if (results [i]._id == 3) {
+                        c = build_company_group(90, 'Twitter Average', 3, true);
                     }
                     if (c != null) {
                         c.setX(results[i].avgx);
@@ -81,33 +156,26 @@
         var companies = [];
         var stage;
 
-        function build_company_group(y, c_name, c_id, is_average) {
+        function build_company_group(y, c_name, c_id, is_average, c_img) {
             var group = new Kinetic.Group({
                 x: grid_width + 30,
                 y: y,
                 draggable: !is_average,
                 id: c_id,
             });
+            
 
-            var star = new Kinetic.Star({
-                x: 0,
-                y: 0,
-                numPoints: 6,
-                innerRadius: 4,
-                outerRadius: 10,
-                fill: '#00D2FF',
-                stroke: 'black',
-                strokeWidth: 1,
-            });
             var simpleText = new Kinetic.Text({
                 x: 10,
                 y: -10,
                 text: c_name,
+                image: c_img,
                 fontSize: 20,
                 fontFamily: 'Calibri',
-                fill: 'blue'
+                fill: 'white'
             });
-            group.add(star);
+
+            
             group.add(simpleText);
 
             group.on('mouseover', function() {
@@ -122,23 +190,25 @@
         function build_background(layer, stage_width, stage_height) {
             var grid_background = new Kinetic.Rect({
                 x: 0,
-                y: 0,
+                y: 100,
                 width: total_width,
                 height: total_height,
-                fill: 'lightgreen',
-                stroke: 'black',
-                strokeWidth: 2
+                fill: 'lightgrey',
+                stroke: ''
+
             });
+            
             layer.add(grid_background);
+            
             var grid_background = new Kinetic.Rect({
-                x: grid_width,
+                x: 0,
                 y: 0,
-                width: total_width - grid_width,
-                height: total_height,
+                width: total_width,
+                height: total_height - grid_height,
                 fill: 'gray',
-                stroke: 'black',
-                strokeWidth: 2
+                stroke: ''
             });
+
             layer.add(grid_background);
         }
 
@@ -156,11 +226,19 @@
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(60, 'Microsoft', 2, false);
+        var c = build_company_group(60, 'Facebook', 2, false);
+        companies.push(c);
+        layer.add(c);
+
+        var c = build_company_group(90, 'Twitter', 3, false);
         companies.push(c);
         layer.add(c);
 
         stage.add(layer);
     </script>
+     <span class='logos' my_id='1' >
+            <img src='/static/img/dropbox-logo.jpg'/>
+            Dropbox
+        </span>
 </body>
 </html>
