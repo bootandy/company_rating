@@ -60,12 +60,19 @@
                 for (var i = 0; i < results.length; i++) {
                     var c = null;
                     if (results[i]._id == 1) {
-                        c = build_company_group(30, 'Dropbox Average', 1, true);
+                         c = build_company_group(30, 'Facebook Average', 1, true);
                     } else if (results[i]._id == 2) {
-                        c = build_company_group(60, 'Facebook Average', 2, true);
+                        c = build_company_group(60, 'Twitter Average', 2, true);
                     } else if (results [i]._id == 3) {
-                        c = build_company_group(90, 'Twitter Average', 3, true);
-                    }
+                        c = build_company_group(90,'Gmail Average', 3, true);
+                    } else if (results [i]._id == 4) {
+                        c = build_company_group(120, 'Dropbox Average', 4, true);
+                    } else if (results [i]._id == 5) {
+                        c = build_company_group(150, 'Amazon Average', 5, true);
+                    } else if (results [i]._id == 6) {
+                        c = build_company_group(180, 'eBay Average', 6, true);
+                    } 
+
                     if (c != null) {
                         c.setX(results[i].avgx);
                         c.setY(results[i].avgy);
@@ -148,15 +155,28 @@
         // yuck!
         build_background(layer, stage.getWidth(), stage.getHeight());
 
-        var c = build_company_group(30, 'Dropbox', 1, false);
+        var c = build_company_group(30, 'Facebook', 1, false);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(60, 'Facebook', 2, false);
+        var c = build_company_group(60, 'Twitter', 2, false);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(90, 'Twitter', 3, false);
+        var c = build_company_group(90, 'Gmail', 3, false);
+        companies.push(c);
+        layer.add(c);
+
+        var c = build_company_group(120, 'Dropbox', 4, false);
+        companies.push(c);
+        layer.add(c);
+
+
+        var c = build_company_group(150, 'Amazon', 5, false);
+        companies.push(c);
+        layer.add(c);
+
+        var c = build_company_group(180, 'eBay', 6, false);
         companies.push(c);
         layer.add(c);
 
