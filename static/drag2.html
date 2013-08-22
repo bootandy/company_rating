@@ -8,13 +8,13 @@
 
 <body>
    <div id="container"></div>
-
+   <img src="img/table.png" alt="table" id="table_image"/>
     <button class='save_button'>submit &amp; show averages</button>
 
     <script>
         var total_width = 600;
         var total_height = 500;
-        var grid_width = 400;
+        var grid_width = 500;
         var grid_height = 400;
 
         $(document).ready(function() {
@@ -91,7 +91,7 @@
 
         function build_company_group(y, c_name, c_id, is_average, c_img) {
             var group = new Kinetic.Group({
-                x: grid_width + 30,
+                x: grid_width,
                 y: y,
                 draggable: !is_average,
                 id: c_id,
@@ -105,7 +105,7 @@
                 image: c_img,
                 fontSize: 20,
                 fontFamily: 'Calibri',
-                fill: 'white'
+                fill: 'black'
             });
 
             
@@ -134,12 +134,10 @@
             layer.add(grid_background);
             
             var grid_background = new Kinetic.Rect({
-                x: 0,
+                x: grid_width,
                 y: 0,
-                width: total_width,
-                height: total_height - grid_height,
-                fill: 'gray',
-                stroke: ''
+                width: total_width - grid_width,
+                height: total_height
             });
 
             layer.add(grid_background);
