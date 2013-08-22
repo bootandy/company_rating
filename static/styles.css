@@ -20,29 +20,51 @@ canvas {
 }
 
 .save_button {
-	padding: 8px 12px;
-	font-size: .7em;
-	border-radius: 10px;
-	color: #fef4e9;
-	border: solid 1px #da7c0c;
-	background: #f78d1d;
-	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
-	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
-	font-weight: bold;
-	margin-left: 230px;
+	    /* General Propertoes */
+    border:0px solid #858fa6;
+    background:#086FA1;
+    outline: none;
+    width: 120px;
+    cursor: pointer;
+    font-family: Helvetica, Arial;
+    font-size: .9em;
+    color: #FFF;
+    font-weight: normal;
+    padding: 5px;
+    float: left;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    margin-bottom: 5%;
+    margin-left: 210px;
+
+    /* CSS3 Styling */
+    background:-moz-linear-gradient(top, #086FA1, #235D79);
+    background:-webkit-gradient(linear, left top, left bottom, from(#086FA1), to(#235D79));
+
+    -moz-box-shadow:0px 0px 1px #000;
+    -webkit-box-shadow:0px 0px 1px #000;
+    box-shadow:0px 0px 1px #000;
+    
 }
 .save_button:hover {
-	background: #f47c20;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
-	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
-	font-weight: bold;
+	background:#235D79;
+
+    /* CSS3 Styling */
+    background:-moz-linear-gradient(top, #235D79, #086FA1);
+    background:-webkit-gradient(linear, left top, left bottom, from(#235D79), to(#086FA1));
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-box-shadow:0px 0px 1px #000;
+    -webkit-box-shadow:0px 0px 1px #000;
+    box-shadow:0px 0px 1px #000;
 }
 .save_button:active {
-	color: #000;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
-	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+   outline: none;
+
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 
 }

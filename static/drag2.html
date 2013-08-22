@@ -90,13 +90,21 @@
 
         var companies = [];
         var stage;
+        var imgObj = new Image();
 
-        function build_company_group(y, c_name, c_id, is_average, comp_color, bold) {
+        function build_company_group(y, c_name, c_id, is_average, comp_color, bold, imgObj) {
             var group = new Kinetic.Group({
                 x: grid_width,
                 y: y,
                 draggable: !is_average,
                 id: c_id,
+            });
+
+            var complogo = new Kinetic.Image({
+
+                image: imgObj,
+                x: 10,
+                y: -10
             });
             
 
@@ -110,7 +118,7 @@
                 fill: comp_color
             });
 
-            
+            group.add(complogo);
             group.add(simpleText);
 
             group.on('mouseover', function() {
@@ -151,6 +159,7 @@
 
         // yuck!
         build_background(layer, stage.getWidth(), stage.getHeight());
+
 
         var c = build_company_group(30, 'Facebook', 1, false, '#3B5998');
         companies.push(c);
