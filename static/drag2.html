@@ -12,7 +12,7 @@
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
     </div>
-    <button class='save_button'>submit &amp; show averages</button>
+    <button class='save_button'>submit</button>
 
     <script>
         var total_width = 600;
@@ -62,17 +62,17 @@
                 for (var i = 0; i < results.length; i++) {
                     var c = null;
                     if (results[i]._id == 1) {
-                         c = build_company_group(30, 'Facebook Average', 1, true);
+                         c = build_company_group(30, 'Facebook Avg.', 1, true, '#3B5998', 'bold');
                     } else if (results[i]._id == 2) {
-                        c = build_company_group(60, 'Twitter Average', 2, true);
+                        c = build_company_group(60, 'Twitter Avg.', 2, true, '#4099FF', 'bold');
                     } else if (results [i]._id == 3) {
-                        c = build_company_group(90,'Gmail Average', 3, true);
+                        c = build_company_group(90,'Gmail Avg.', 3, true, '#dd1812', 'bold');
                     } else if (results [i]._id == 4) {
-                        c = build_company_group(120, 'Dropbox Average', 4, true);
+                        c = build_company_group(120, 'Dropbox Avg.', 4, true, '#3d4944', 'bold');
                     } else if (results [i]._id == 5) {
-                        c = build_company_group(150, 'Amazon Average', 5, true);
+                        c = build_company_group(150, 'Amazon Avg.', 5, true, '#e47911', 'bold');
                     } else if (results [i]._id == 6) {
-                        c = build_company_group(180, 'eBay Average', 6, true);
+                        c = build_company_group(180, 'eBay Avg.', 6, true, '#ffcc00', 'bold');
                     } 
 
                     if (c != null) {
@@ -91,7 +91,7 @@
         var companies = [];
         var stage;
 
-        function build_company_group(y, c_name, c_id, is_average, c_img) {
+        function build_company_group(y, c_name, c_id, is_average, comp_color, bold) {
             var group = new Kinetic.Group({
                 x: grid_width,
                 y: y,
@@ -104,10 +104,10 @@
                 x: 10,
                 y: -10,
                 text: c_name,
-                image: c_img,
-                fontSize: 18,
-                fontFamily: 'Calibri',
-                fill: 'black'
+                fontSize: 17,
+                fontFamily: 'Helvetica, Arial',
+                fontStyle: bold,
+                fill: comp_color
             });
 
             
@@ -152,28 +152,28 @@
         // yuck!
         build_background(layer, stage.getWidth(), stage.getHeight());
 
-        var c = build_company_group(30, 'Facebook', 1, false);
+        var c = build_company_group(30, 'Facebook', 1, false, '#3B5998');
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(60, 'Twitter', 2, false);
+        var c = build_company_group(60, 'Twitter', 2, false, '#4099FF');
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(90, 'Gmail', 3, false);
+        var c = build_company_group(90, 'Gmail', 3, false, '#dd1812');
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(120, 'Dropbox', 4, false);
+        var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944');
         companies.push(c);
         layer.add(c);
 
 
-        var c = build_company_group(150, 'Amazon', 5, false);
+        var c = build_company_group(150, 'Amazon', 5, false, '#e47911');
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(180, 'eBay', 6, false);
+        var c = build_company_group(180, 'eBay', 6, false, '#ffcc00');
         companies.push(c);
         layer.add(c);
 
