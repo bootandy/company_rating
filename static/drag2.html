@@ -92,19 +92,12 @@
         var stage;
         var imgObj = new Image();
 
-        function build_company_group(y, c_name, c_id, is_average, comp_color, bold, imgObj) {
+        function build_company_group(y, c_name, c_id, is_average, comp_color, bold) {
             var group = new Kinetic.Group({
                 x: grid_width,
                 y: y,
                 draggable: !is_average,
                 id: c_id,
-            });
-
-            var complogo = new Kinetic.Image({
-
-                image: imgObj,
-                x: 10,
-                y: -10
             });
             
 
@@ -118,7 +111,6 @@
                 fill: comp_color
             });
 
-            group.add(complogo);
             group.add(simpleText);
 
             group.on('mouseover', function() {
