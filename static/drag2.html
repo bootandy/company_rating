@@ -8,10 +8,17 @@
 </head>
 
 <body>
+    <div id="text_chart">
+
+        <p> Drag to position on to chart </p>
+
+    </div>
    <div id="container"></div>
+
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
     </div>
+   
     <button class='save_button'>submit</button>
 
     <script>
@@ -103,7 +110,7 @@
 
             var simpleText = new Kinetic.Text({
                 x: 10,
-                y: -10,
+                y: 30,
                 text: c_name,
                 fontSize: 12,
                 fontFamily: 'Helvetica, Arial',

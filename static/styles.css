@@ -19,6 +19,14 @@ canvas {
 	position: absolute;
 }
 
+#text_chart {
+
+    position: absolute;
+    font-size: .8em;
+    font-family: sans-serif;
+    margin-left:510px; 
+}
+
 .save_button {
 	    /* General Propertoes */
     border:0px solid #858fa6;
