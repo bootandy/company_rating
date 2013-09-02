@@ -13,6 +13,13 @@
 	position: static;
 	margin-top: -500px;
 
+
+}
+
+#trend {
+    margin-left: -503px;
+    display: none;
+    
 }
 canvas {
 
@@ -22,6 +29,7 @@ canvas {
 #text_chart {
 
     position: absolute;
+    margin-top: 10px;
     font-size: .8em;
     font-family: sans-serif;
     margin-left:510px; 

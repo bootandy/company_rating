@@ -10,16 +10,20 @@
 <body>
     <div id="text_chart">
 
-        <p> Drag to position on to chart </p>
+     Drag to position on to chart
 
     </div>
    <div id="container"></div>
+   <div id="averagecontainer"></div>
 
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
+     <img src ="img/table_trend.png" alt="trend" id="trend"/>
     </div>
-   
+
     <button class='save_button'>submit</button>
+
+
 
     <script>
         var total_width = 600;
@@ -31,6 +35,12 @@
             $('.save_button').click(function(){
                 var data = [];
                 var c_ids = [];
+
+                //Text Changes when the user clicks on submit
+                document.getElementById("text_chart").innerHTML = "Mouseover to highlight";
+                
+                //Shows the trend lines when the user clicks on submit
+                $('#trend').show();
 
                 for (var i = 0; i < companies.length; i++) {
                     if (companies[i].getX() < grid_width) {
@@ -60,6 +70,8 @@
                     });
 
                 });
+
+
             });
             function display_averages(data) {
                 var results = data['result'];
@@ -148,7 +160,7 @@
 
             layer.add(grid_background);
         }
-
+        
         stage = new Kinetic.Stage({
             container: 'container',
             width: total_width,
