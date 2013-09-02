@@ -8,21 +8,61 @@
 </head>
 
 <body>
-    <div id="text_chart">
+    <div id="text_chart"> Drag to position on to chart</div>
 
-     Drag to position on to chart
-
+    <div id="chart">
+      <div id="container"></div>
+      <div id="averagecontainer" class=""></div>  
     </div>
-   <div id="container"></div>
-   <div id="averagecontainer"></div>
 
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
      <img src ="img/table_trend.png" alt="trend" id="trend"/>
     </div>
+    
+    
+    <div id="average_showhide">
+        
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <div class="onoffswitch-inner"></div>
+                <div class="onoffswitch-switch"></div>
+            </label>
+        </div>
+    </div>
 
     <button class='save_button'>submit</button>
 
+    <div id="email">
+        <p>Enter your email address, and we'll send you <br/> a download link, when we've compiled all the data</p>
+    <script type="text/javascript">
+            var submitted = false;
+    </script>
+
+    <iframe name="hidden_iframe" id="hidden_iframe"
+
+        style="display:none;" onload="if (submitted)
+        {
+            window.location = '#';
+        }">
+
+    </iframe>
+
+    <form id="email_form" action="https://docs.google.com/spreadsheet/formResponse?formkey=dENQZXRIb0s1T2VEZDdCdzB4NlRtZ0E6MQ&amp;ifq" method="post"
+              target="hidden_iframe" onsubmit="submitted = true;">
+
+        <div class="errorbox-good">
+            <input type="text" name="entry.0.single" value="" class="required_mail email" id="entry_0" placeholder="Enter your email address">
+            <input type="submit" name="submit" class="submit-button-sidebar " value="">
+
+        </div>
+
+            <input type="hidden" name="pageNumber" value="0">
+            <input type="hidden" name="backupCache" value="">
+
+    </form>
+</div>
 
 
     <script>
@@ -38,9 +78,20 @@
 
                 //Text Changes when the user clicks on submit
                 document.getElementById("text_chart").innerHTML = "Mouseover to highlight";
-                
+
                 //Shows the trend lines when the user clicks on submit
                 $('#trend').show();
+
+                //Shows the toggle to display averages on the grid
+                $('#average_showhide').show();
+
+                //show email form field
+                $('#email').show();
+
+                //Shows or Hides the Averages
+                $( "#myonoffswitch" ).click(function() {
+                    $('#averagecontainer').toggle(1000);
+                });
 
                 for (var i = 0; i < companies.length; i++) {
                     if (companies[i].getX() < grid_width) {
@@ -72,6 +123,8 @@
                 });
 
 
+                S
+
             });
             function display_averages(data) {
                 var results = data['result'];
@@ -81,17 +134,17 @@
                 for (var i = 0; i < results.length; i++) {
                     var c = null;
                     if (results[i]._id == 1) {
-                         c = build_company_group(30, 'Facebook Avg.', 1, true, '#3B5998', 'bold');
+                         c = build_company_group(30, 'Facebook Avg.', 1, true, '#3B5998',3, 'bold');
                     } else if (results[i]._id == 2) {
-                        c = build_company_group(60, 'Twitter Avg.', 2, true, '#4099FF', 'bold');
+                        c = build_company_group(60, 'Twitter Avg.', 2, true, '#4099FF',3, 'bold');
                     } else if (results [i]._id == 3) {
-                        c = build_company_group(90,'Gmail Avg.', 3, true, '#dd1812', 'bold');
+                        c = build_company_group(90,'Gmail Avg.', 3, true, '#dd1812',3, 'bold');
                     } else if (results [i]._id == 4) {
-                        c = build_company_group(120, 'Dropbox Avg.', 4, true, '#3d4944', 'bold');
+                        c = build_company_group(120, 'Dropbox Avg.', 4, true, '#3d4944',3, 'bold');
                     } else if (results [i]._id == 5) {
-                        c = build_company_group(150, 'Amazon Avg.', 5, true, '#e47911', 'bold');
+                        c = build_company_group(150, 'Amazon Avg.', 5, true, '#e47911',3, 'bold');
                     } else if (results [i]._id == 6) {
-                        c = build_company_group(180, 'eBay Avg.', 6, true, '#ffcc00', 'bold');
+                        c = build_company_group(180, 'eBay Avg.', 6, true, '#ffcc00',3, 'bold');
                     } 
 
                     if (c != null) {
@@ -100,18 +153,24 @@
                         average_layer.add(c);
                     }
                 }
-                stage.add(average_layer);
+                stage2.add(average_layer);
 
             }
             var average_layer = new Kinetic.Layer();
 
+
+            function mouseovercompanies(){
+                var results = data['result']; 
+            }
+
+       //End of document ready
         });
 
         var companies = [];
         var stage;
         var imgObj = new Image();
 
-        function build_company_group(y, c_name, c_id, is_average, comp_color, bold) {
+        function build_company_group(y, c_name, c_id, is_average, comp_color,stroke_width, bold ) {
             var group = new Kinetic.Group({
                 x: grid_width,
                 y: y,
@@ -121,15 +180,28 @@
             
 
             var simpleText = new Kinetic.Text({
-                x: 10,
+                x: 5,
                 y: 30,
                 text: c_name,
                 fontSize: 12,
                 fontFamily: 'Helvetica, Arial',
                 fontStyle: bold,
-                fill: comp_color
+                fill: comp_color,
             });
 
+            var border = new Kinetic.Rect({
+
+                x: 0,
+                y: 25,
+                width: 95,
+                height: 20,
+                fill: "#fff",
+                stroke: comp_color,
+                strokeWidth: stroke_width
+
+            });
+
+            group.add(border);
             group.add(simpleText);
 
             group.on('mouseover', function() {
@@ -160,44 +232,54 @@
 
             layer.add(grid_background);
         }
-        
+
         stage = new Kinetic.Stage({
             container: 'container',
             width: total_width,
             height: total_height,
         });
+
+        stage2 = new Kinetic.Stage ({
+
+            container: 'averagecontainer',
+            width: 500, 
+            height: total_height,
+        });
+
         var layer = new Kinetic.Layer();
 
         // yuck!
         build_background(layer, stage.getWidth(), stage.getHeight());
 
 
-        var c = build_company_group(30, 'Facebook', 1, false, '#3B5998');
+        var c = build_company_group(30, 'Facebook', 1, false, '#3B5998',1);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(60, 'Twitter', 2, false, '#4099FF');
+        var c = build_company_group(60, 'Twitter', 2, false, '#4099FF',1);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(90, 'Gmail', 3, false, '#dd1812');
+        var c = build_company_group(90, 'Gmail', 3, false, '#dd1812',1);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944');
+        var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944',1);
         companies.push(c);
         layer.add(c);
 
 
-        var c = build_company_group(150, 'Amazon', 5, false, '#e47911');
+        var c = build_company_group(150, 'Amazon', 5, false, '#e47911',1);
         companies.push(c);
         layer.add(c);
 
-        var c = build_company_group(180, 'eBay', 6, false, '#ffcc00');
+        var c = build_company_group(180, 'eBay', 6, false, '#ffcc00',1);
         companies.push(c);
         layer.add(c);
 
         stage.add(layer);
+
+
     </script>
  </body>
 </html>
