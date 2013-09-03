@@ -84,6 +84,23 @@
     var total_height = 500;
     var grid_width = 500;
 
+    var companies = [];
+    var stage;
+    var stage_average;
+    var stage_draggable;
+    var stage_menu_on_right;
+    var imgObj = new Image();
+    var layer_nondraggable = new Kinetic.Layer();
+
+    var company_options = {
+        1: ['Facebook', '#3B5998'],
+        2: ['Twitter', '#4099FF'],
+        3: ['Gmail', '#dd1812'],
+        4: ['Dropbox', '#3d4944'],
+        5: ['Amazon', '#e47911'],
+        6: ['eBay', '#ffcc00'],
+    }
+
     $(document).ready(function() {
 
         $('.save_button').click(function(){
@@ -154,31 +171,16 @@
             average_layer = new Kinetic.Layer();
 
             for (var i = 0; i < results.length; i++) {
-                var c = null;
-                if (results[i]._id == 1) {
-                     c = build_company_group(0, 'Facebook Avg.', 1, true, '#3B5998',3, 'bold');
-                } else if (results[i]._id == 2) {
-                    c = build_company_group(0, 'Twitter Avg.', 2, true, '#4099FF',3, 'bold');
-                } else if (results [i]._id == 3) {
-                    c = build_company_group(0,'Gmail Avg.', 3, true, '#dd1812',3, 'bold');
-                } else if (results [i]._id == 4) {
-                    c = build_company_group(0, 'Dropbox Avg.', 4, true, '#3d4944',3, 'bold');
-                } else if (results [i]._id == 5) {
-                    c = build_company_group(0, 'Amazon Avg.', 5, true, '#e47911',3, 'bold');
-                } else if (results [i]._id == 6) {
-                    c = build_company_group(0, 'eBay Avg.', 6, true, '#ffcc00',3, 'bold');
+                if (results[i]._id > 0 && results[i]._id < 7) {
+                    var c = build_company_group_average(results[i]._id)
+                    if (c != null) {
+                        c.setX(results[i].avgx);
+                        c.setY(results[i].avgy);
+                        average_layer.add(c);
+                    }
                 }
-
-                if (c != null) {
-                    c.setX(results[i].avgx);
-                    c.setY(results[i].avgy);
-                    average_layer.add(c);
-                }
-
-                $()
-
             }
-            stage2.add(average_layer);
+            stage_average.add(average_layer);
 
         }
         var average_layer = new Kinetic.Layer();
@@ -186,19 +188,62 @@
    //End of document ready
     });
 
-    var companies = [];
-    var stage;
-    var stage2;
-    var imgObj = new Image();
+    function build_company_group_draggable(c_id) {
+        return _build_company_group(c_id * 30, company_options[c_id][0], c_id, true, company_options[c_id][1], 1, false, '');
+    }
 
-    function build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, is_hoverable, bold  ) {
+    function build_company_group_hoverable(c_id) {
+        var group = _build_company_group(c_id * 30, company_options[c_id][0], c_id, false, company_options[c_id][1], 1, true, '');
+
+        group.on('mouseover', function() {
+            document.body.style.cursor = '';
+
+            stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', '#CCC');
+            });
+            stage_menu_on_right.get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', '#CCC');
+            });
+            stage_draggable.get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', '#CCC');
+            });
+            stage_draggable.get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', '#CCC');
+            });
+            stage_average.get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', '#CCC');
+            });
+            stage_average.get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', '#CCC');
+            });
+
+            group.get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', group.getAttr('real_color'));
+            });
+            group.get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', group.getAttr('real_color'));
+            });
+
+            stage_menu_on_right.batchDraw();
+            stage_draggable.batchDraw();
+            stage_average.batchDraw();
+        });
+
+        return group;
+    }
+
+    function build_company_group_average(c_id) {
+        return _build_company_group(0, company_options[c_id][0] + ' Avg', c_id, false, company_options[c_id][1], 3, false, 'bold');
+    }
+
+    function _build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, is_hoverable, bold) {
         var group = new Kinetic.Group({
             x: grid_width,
             y: y,
-            draggable: !draggable,
+            draggable: draggable,
             id: c_id,
+            real_color: comp_color,
         });
-
 
         var simpleText = new Kinetic.Text({
             x: 5,
@@ -208,55 +253,25 @@
             fontFamily: 'Helvetica, Arial',
             fontStyle: bold,
             fill: comp_color,
-            name: 'company_classes'
+            name: 'company_logo_text'
         });
 
         var border = new Kinetic.Rect({
-
             x: 0,
             y: 25,
             width: 95,
             height: 20,
             fill: "#fff",
             stroke: comp_color,
-            strokeWidth: stroke_width
-
+            strokeWidth: stroke_width,
+            name: 'company_logo_border'
         });
 
         group.add(border);
         group.add(simpleText);
 
         group.on('mouseover', function() {
-
             document.body.style.cursor = 'pointer';
-            console.log(this.isVisible());
-            this.hide();
-            //console.log(this);
-            if (is_hoverable){
-
-
-
-                // var text_select = $('body').find('.company_classes');
-                // console.log(text_select);
-                // for (var i = 0; i < text_select.length; i++) {
-                //     $(text_select[i]).hide();
-                // }
-                // console.log(text_select);
-
-                // $(".company_classes" ).each(function (i) {
-                //     console.log($(this));
-                //     if ( this.style.color != "blue" ) {
-                //       this.style.color = "blue";
-                //     } else {
-                //       this.style.color = "";
-                //     }
-
-                //   $(this).hide();
-                // });
-
-            }
-
-
         });
         group.on('mouseout', function() {
             document.body.style.cursor = 'default';
@@ -264,25 +279,25 @@
         return group;
     }
 
-    function build_background(layer, stage_width, stage_height) {
-        var grid_background = new Kinetic.Rect({
-            x: 0,
-            y: 100,
-            width: total_width,
-            height: total_height
-        });
+    // function build_background(layer, stage_width, stage_height) {
+    //     var grid_background = new Kinetic.Rect({
+    //         x: 0,
+    //         y: 100,
+    //         width: total_width,
+    //         height: total_height
+    //     });
 
-        layer_background.add(grid_background);
+    //     layer_background.add(grid_background);
 
-        var grid_background = new Kinetic.Rect({
-            x: grid_width,
-            y: 0,
-            width: total_width - grid_width,
-            height: total_height
-        });
+    //     var grid_background = new Kinetic.Rect({
+    //         x: grid_width,
+    //         y: 0,
+    //         width: total_width - grid_width,
+    //         height: total_height
+    //     });
 
-        layer_background.add(grid_background);
-    }
+    //     layer_background.add(grid_background);
+    // }
 
     stage = new Kinetic.Stage({
         container: 'container',
@@ -290,21 +305,21 @@
         height: total_height,
     });
 
-    stage2 = new Kinetic.Stage ({
+    stage_average = new Kinetic.Stage ({
 
         container: 'averagecontainer',
         width: 600,
         height: total_height,
     });
 
-    stage3 = new Kinetic.Stage ({
+    stage_draggable = new Kinetic.Stage ({
 
         container: 'userplacement',
         width: 600,
         height: total_height,
     });
 
-    stage4 = new Kinetic.Stage ({
+    stage_menu_on_right = new Kinetic.Stage ({
 
         container: 'nondraggable',
         width: 600,
@@ -313,57 +328,22 @@
 
     var layer = new Kinetic.Layer();
     var layer_background = new Kinetic.Layer();
-    var layer_nondraggable = new Kinetic.Layer();
 
     // yuck!
-    build_background(layer, stage.getWidth(), stage.getHeight());
+    //build_background(layer, stage.getWidth(), stage.getHeight());
 
+    for(var row in company_options) {
+        var c = build_company_group_draggable(row);
+        companies.push(c);
+        layer.add(c)
 
-    var c = build_company_group(30, 'Facebook', 1, true, '#3B5998',1, true);
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(30, 'Facebook', 1, false, '#3B5998',1);
-    companies.push(c);
-    layer.add(c)
-
-    var c = build_company_group(60, 'Twitter', 2, true, '#4099FF',1, true );
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(60, 'Twitter', 2, false, '#4099FF',1);
-    companies.push(c);
-    layer.add(c);
-
-    var c = build_company_group(90, 'Gmail', 3, true, '#dd1812',1, true);
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(90, 'Gmail', 3, false, '#dd1812',1);
-    companies.push(c);
-    layer.add(c);
-
-    var c = build_company_group(120, 'Dropbox', 4, true, '#3d4944',1, true);
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944',1);
-    companies.push(c);
-    layer.add(c);
-
-    var c = build_company_group(150, 'Amazon', 5, true, '#e47911',1, true);
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(150, 'Amazon', 5, false, '#e47911',1);
-    companies.push(c);
-    layer.add(c);
-
-    var c = build_company_group(180, 'eBay', 6, true, '#ffcc00',1, true);
-    layer_nondraggable.add(c);
-
-    var c = build_company_group(180, 'eBay', 6, false, '#ffcc00',1);
-    companies.push(c);
-    layer.add(c);
+        var c = build_company_group_hoverable(row);
+        layer_nondraggable.add(c);
+    }
 
     stage.add(layer_background);
-    stage3.add(layer);
-    stage4.add(layer_nondraggable);
+    stage_draggable.add(layer);
+    stage_menu_on_right.add(layer_nondraggable);
 
 
     </script>
