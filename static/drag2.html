@@ -13,8 +13,9 @@
     <div id="chart">
       <div id="container"></div>
       <div id="userplacement"></div>
-      <div id="averagecontainer"></div>  
+      <div id="averagecontainer"></div>
       <div id="nondraggable"></div>
+  
     </div>
 
     <div id="table_image">
@@ -26,7 +27,7 @@
     <div id="average_showhide">
         
         <div class="onoffswitch">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" >
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
                 <div class="onoffswitch-inner"></div>
                 <div class="onoffswitch-switch"></div>
@@ -36,7 +37,7 @@
 
     <div id="your_showhide">    
         <div class="onoffswitch-user">
-            <input type="checkbox" name="onoffswitch-user" class="onoffswitch-checkbox-user" id="onoffswitch-user" >
+            <input type="checkbox" name="onoffswitch-user" class="onoffswitch-checkbox-user" id="onoffswitch-user" checked>
             <label class="onoffswitch-label-user" for="onoffswitch-user">
                 <div class="onoffswitch-inner-user"></div>
                 <div class="onoffswitch-switch-user"></div>
@@ -182,15 +183,6 @@
         }
         var average_layer = new Kinetic.Layer();
 
-
-        function mouseovercompanies(data){
-
-            // Find ids of the companies
-           var results = data['result'];
-                
-
-        }
-
    //End of document ready
     });
 
@@ -199,7 +191,7 @@
     var stage2;
     var imgObj = new Image();
 
-    function build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, bold ) {
+    function build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, is_hoverable, bold  ) {
         var group = new Kinetic.Group({
             x: grid_width,
             y: y,
@@ -216,6 +208,7 @@
             fontFamily: 'Helvetica, Arial',
             fontStyle: bold,
             fill: comp_color,
+            name: 'company_classes'
         });
 
         var border = new Kinetic.Rect({
@@ -234,10 +227,36 @@
         group.add(simpleText);
 
         group.on('mouseover', function() {
+            
             document.body.style.cursor = 'pointer';
+            console.log(this.isVisible());
+            this.hide();
+            //console.log(this);
+            if (is_hoverable){
 
+                
 
+                // var text_select = $('body').find('.company_classes');
+                // console.log(text_select);
+                // for (var i = 0; i < text_select.length; i++) {
+                //     $(text_select[i]).hide();
+                // }
+                // console.log(text_select);
 
+                // $(".company_classes" ).each(function (i) {
+                //     console.log($(this));
+                //     if ( this.style.color != "blue" ) {
+                //       this.style.color = "blue";
+                //     } else {
+                //       this.style.color = "";
+                //     }
+                  
+                //   $(this).hide();
+                // });
+
+            }
+           
+               
         });
         group.on('mouseout', function() {
             document.body.style.cursor = 'default';
@@ -300,42 +319,42 @@
     build_background(layer, stage.getWidth(), stage.getHeight());
 
 
-    var c = build_company_group(30, 'Facebook', 1, true, '#3B5998',1);
+    var c = build_company_group(30, 'Facebook', 1, true, '#3B5998',1, true);
     layer_nondraggable.add(c);
 
     var c = build_company_group(30, 'Facebook', 1, false, '#3B5998',1);
     companies.push(c);
     layer.add(c)
 
-    var c = build_company_group(60, 'Twitter', 2, true, '#4099FF',1);
+    var c = build_company_group(60, 'Twitter', 2, true, '#4099FF',1, true );
     layer_nondraggable.add(c);
 
     var c = build_company_group(60, 'Twitter', 2, false, '#4099FF',1);
     companies.push(c);
     layer.add(c);
 
-    var c = build_company_group(90, 'Gmail', 3, true, '#dd1812',1);
+    var c = build_company_group(90, 'Gmail', 3, true, '#dd1812',1, true);
     layer_nondraggable.add(c);
 
     var c = build_company_group(90, 'Gmail', 3, false, '#dd1812',1);
     companies.push(c);
     layer.add(c);
 
-    var c = build_company_group(120, 'Dropbox', 4, true, '#3d4944',1);
+    var c = build_company_group(120, 'Dropbox', 4, true, '#3d4944',1, true);
     layer_nondraggable.add(c);
 
     var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944',1);
     companies.push(c);
     layer.add(c);
 
-    var c = build_company_group(150, 'Amazon', 5, true, '#e47911',1);
+    var c = build_company_group(150, 'Amazon', 5, true, '#e47911',1, true);
     layer_nondraggable.add(c);
 
     var c = build_company_group(150, 'Amazon', 5, false, '#e47911',1);
     companies.push(c);
     layer.add(c);
 
-    var c = build_company_group(180, 'eBay', 6, true, '#ffcc00',1);
+    var c = build_company_group(180, 'eBay', 6, true, '#ffcc00',1, true);
     layer_nondraggable.add(c);
 
     var c = build_company_group(180, 'eBay', 6, false, '#ffcc00',1);
@@ -346,7 +365,6 @@
     stage3.add(layer);
     stage4.add(layer_nondraggable);
 
-    //place non draggable in different layer/div
 
     </script>
  </body>

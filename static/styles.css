@@ -143,26 +143,26 @@ canvas {
 .onoffswitch-inner:before {
     content: "show avg.";
     padding-left: 11px;
-    background-color: #8A8282; color: #FFFFFF;
+    background-color: #a81643; color: #FFFFFF;
 }
 
 .onoffswitch-inner-user:before {
     content: "show mine";
     padding-left: 11px;
-    background-color: #8A8282; color: #FFFFFF;
+    background-color: #a81643; color: #FFFFFF;
 }
 
 .onoffswitch-inner:after {
     content: "hide avg.";
     padding-right: 11px;
-    background-color: #a81643; color: #FCFCFC;
+    background-color: #8A8282; color: #FCFCFC;
     text-align: right;
 }
 
 .onoffswitch-inner-user:after {
     content: "hide mine";
     padding-right: 11px;
-    background-color: #a81643; color: #FCFCFC;
+    background-color: #8A8282; color: #FCFCFC;
     text-align: right;
 }
 
@@ -233,3 +233,7 @@ canvas {
     margin-left: 5px;
 }
 
+.greyout{
+
+    color: #aaa;
+}
