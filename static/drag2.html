@@ -15,17 +15,17 @@
       <div id="userplacement"></div>
       <div id="averagecontainer"></div>
       <div id="nondraggable"></div>
-  
+
     </div>
 
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
      <img src ="img/table_trend.png" alt="trend" id="trend"/>
     </div>
-    
-    
+
+
     <div id="average_showhide">
-        
+
         <div class="onoffswitch">
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch">
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div id="your_showhide">    
+    <div id="your_showhide">
         <div class="onoffswitch-user">
             <input type="checkbox" name="onoffswitch-user" class="onoffswitch-checkbox-user" id="onoffswitch-user" checked>
             <label class="onoffswitch-label-user" for="onoffswitch-user">
@@ -43,7 +43,7 @@
                 <div class="onoffswitch-switch-user"></div>
             </label>
         </div>
-            
+
     </div>
 
     <button class='save_button'>Submit</button>
@@ -101,12 +101,12 @@
 
             $('#averagecontainer').show();
             //show email form field
-            $('#email').show(); 
+            $('#email').show();
 
             //show non-draggable div after the user submits
             $('#nondraggable').show();
 
-            $('#your_showhide').show(); 
+            $('#your_showhide').show();
             //Shows or Hides the Averages
             $( "#myonoffswitch" ).click(function() {
                 $('#averagecontainer').toggle();
@@ -167,7 +167,7 @@
                     c = build_company_group(0, 'Amazon Avg.', 5, true, '#e47911',3, 'bold');
                 } else if (results [i]._id == 6) {
                     c = build_company_group(0, 'eBay Avg.', 6, true, '#ffcc00',3, 'bold');
-                } 
+                }
 
                 if (c != null) {
                     c.setX(results[i].avgx);
@@ -198,7 +198,7 @@
             draggable: !draggable,
             id: c_id,
         });
-        
+
 
         var simpleText = new Kinetic.Text({
             x: 5,
@@ -227,14 +227,14 @@
         group.add(simpleText);
 
         group.on('mouseover', function() {
-            
+
             document.body.style.cursor = 'pointer';
             console.log(this.isVisible());
             this.hide();
             //console.log(this);
             if (is_hoverable){
 
-                
+
 
                 // var text_select = $('body').find('.company_classes');
                 // console.log(text_select);
@@ -250,13 +250,13 @@
                 //     } else {
                 //       this.style.color = "";
                 //     }
-                  
+
                 //   $(this).hide();
                 // });
 
             }
-           
-               
+
+
         });
         group.on('mouseout', function() {
             document.body.style.cursor = 'default';
@@ -271,9 +271,9 @@
             width: total_width,
             height: total_height
         });
-        
+
         layer_background.add(grid_background);
-        
+
         var grid_background = new Kinetic.Rect({
             x: grid_width,
             y: 0,
@@ -293,21 +293,21 @@
     stage2 = new Kinetic.Stage ({
 
         container: 'averagecontainer',
-        width: 600, 
+        width: 600,
         height: total_height,
     });
 
     stage3 = new Kinetic.Stage ({
 
         container: 'userplacement',
-        width: 600, 
+        width: 600,
         height: total_height,
     });
 
     stage4 = new Kinetic.Stage ({
 
         container: 'nondraggable',
-        width: 600, 
+        width: 600,
         height: total_height,
     });
 
