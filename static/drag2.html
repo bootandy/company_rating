@@ -13,7 +13,8 @@
     <div id="chart">
       <div id="container"></div>
       <div id="userplacement"></div>
-      <div id="averagecontainer" class=""></div>  
+      <div id="averagecontainer"></div>  
+      <div id="nondraggable"></div>
     </div>
 
     <div id="table_image">
@@ -101,6 +102,9 @@
             //show email form field
             $('#email').show(); 
 
+            //show non-draggable div after the user submits
+            $('#nondraggable').show();
+
             $('#your_showhide').show(); 
             //Shows or Hides the Averages
             $( "#myonoffswitch" ).click(function() {
@@ -151,17 +155,17 @@
             for (var i = 0; i < results.length; i++) {
                 var c = null;
                 if (results[i]._id == 1) {
-                     c = build_company_group(30, 'Facebook Avg.', 1, true, '#3B5998',3, 'bold');
+                     c = build_company_group(0, 'Facebook Avg.', 1, true, '#3B5998',3, 'bold');
                 } else if (results[i]._id == 2) {
-                    c = build_company_group(60, 'Twitter Avg.', 2, true, '#4099FF',3, 'bold');
+                    c = build_company_group(0, 'Twitter Avg.', 2, true, '#4099FF',3, 'bold');
                 } else if (results [i]._id == 3) {
-                    c = build_company_group(90,'Gmail Avg.', 3, true, '#dd1812',3, 'bold');
+                    c = build_company_group(0,'Gmail Avg.', 3, true, '#dd1812',3, 'bold');
                 } else if (results [i]._id == 4) {
-                    c = build_company_group(120, 'Dropbox Avg.', 4, true, '#3d4944',3, 'bold');
+                    c = build_company_group(0, 'Dropbox Avg.', 4, true, '#3d4944',3, 'bold');
                 } else if (results [i]._id == 5) {
-                    c = build_company_group(150, 'Amazon Avg.', 5, true, '#e47911',3, 'bold');
+                    c = build_company_group(0, 'Amazon Avg.', 5, true, '#e47911',3, 'bold');
                 } else if (results [i]._id == 6) {
-                    c = build_company_group(180, 'eBay Avg.', 6, true, '#ffcc00',3, 'bold');
+                    c = build_company_group(0, 'eBay Avg.', 6, true, '#ffcc00',3, 'bold');
                 } 
 
                 if (c != null) {
@@ -232,8 +236,8 @@
         group.on('mouseover', function() {
             document.body.style.cursor = 'pointer';
 
-            
-            
+
+
         });
         group.on('mouseout', function() {
             document.body.style.cursor = 'default';
@@ -281,6 +285,12 @@
         height: total_height,
     });
 
+    stage4 = new Kinetic.Stage ({
+
+        container: 'nondraggable',
+        width: 600, 
+        height: total_height,
+    });
 
     var layer = new Kinetic.Layer();
     var layer_background = new Kinetic.Layer();
@@ -291,42 +301,42 @@
 
 
     var c = build_company_group(30, 'Facebook', 1, true, '#3B5998',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(30, 'Facebook', 1, false, '#3B5998',1);
     companies.push(c);
     layer.add(c)
 
     var c = build_company_group(60, 'Twitter', 2, true, '#4099FF',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(60, 'Twitter', 2, false, '#4099FF',1);
     companies.push(c);
     layer.add(c);
 
     var c = build_company_group(90, 'Gmail', 3, true, '#dd1812',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(90, 'Gmail', 3, false, '#dd1812',1);
     companies.push(c);
     layer.add(c);
 
     var c = build_company_group(120, 'Dropbox', 4, true, '#3d4944',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944',1);
     companies.push(c);
     layer.add(c);
 
     var c = build_company_group(150, 'Amazon', 5, true, '#e47911',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(150, 'Amazon', 5, false, '#e47911',1);
     companies.push(c);
     layer.add(c);
 
     var c = build_company_group(180, 'eBay', 6, true, '#ffcc00',1);
-    layer.add(c);
+    layer_nondraggable.add(c);
 
     var c = build_company_group(180, 'eBay', 6, false, '#ffcc00',1);
     companies.push(c);
@@ -334,6 +344,7 @@
 
     stage.add(layer_background);
     stage3.add(layer);
+    stage4.add(layer_nondraggable);
 
     //place non draggable in different layer/div
 

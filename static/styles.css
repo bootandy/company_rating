@@ -36,6 +36,11 @@
     display: none;
 }
 
+#nondraggable {
+    margin-top: -504px;
+    display: none;
+}
+
 #trend {
     margin-left: -504px;
     display: none;
