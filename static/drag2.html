@@ -195,11 +195,11 @@
     var stage2;
     var imgObj = new Image();
 
-    function build_company_group(y, c_name, c_id, is_average, comp_color,stroke_width, bold ) {
+    function build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, bold ) {
         var group = new Kinetic.Group({
             x: grid_width,
             y: y,
-            draggable: !is_average,
+            draggable: !draggable,
             id: c_id,
         });
         
@@ -231,6 +231,9 @@
 
         group.on('mouseover', function() {
             document.body.style.cursor = 'pointer';
+
+            
+            
         });
         group.on('mouseout', function() {
             document.body.style.cursor = 'default';
@@ -281,30 +284,48 @@
 
     var layer = new Kinetic.Layer();
     var layer_background = new Kinetic.Layer();
+    var layer_nondraggable = new Kinetic.Layer();
 
     // yuck!
     build_background(layer, stage.getWidth(), stage.getHeight());
 
 
+    var c = build_company_group(30, 'Facebook', 1, true, '#3B5998',1);
+    layer.add(c);
+
     var c = build_company_group(30, 'Facebook', 1, false, '#3B5998',1);
     companies.push(c);
+    layer.add(c)
+
+    var c = build_company_group(60, 'Twitter', 2, true, '#4099FF',1);
     layer.add(c);
 
     var c = build_company_group(60, 'Twitter', 2, false, '#4099FF',1);
     companies.push(c);
     layer.add(c);
 
+    var c = build_company_group(90, 'Gmail', 3, true, '#dd1812',1);
+    layer.add(c);
+
     var c = build_company_group(90, 'Gmail', 3, false, '#dd1812',1);
     companies.push(c);
+    layer.add(c);
+
+    var c = build_company_group(120, 'Dropbox', 4, true, '#3d4944',1);
     layer.add(c);
 
     var c = build_company_group(120, 'Dropbox', 4, false, '#3d4944',1);
     companies.push(c);
     layer.add(c);
 
+    var c = build_company_group(150, 'Amazon', 5, true, '#e47911',1);
+    layer.add(c);
 
     var c = build_company_group(150, 'Amazon', 5, false, '#e47911',1);
     companies.push(c);
+    layer.add(c);
+
+    var c = build_company_group(180, 'eBay', 6, true, '#ffcc00',1);
     layer.add(c);
 
     var c = build_company_group(180, 'eBay', 6, false, '#ffcc00',1);
@@ -314,6 +335,7 @@
     stage.add(layer_background);
     stage3.add(layer);
 
+    //place non draggable in different layer/div
 
     </script>
  </body>
