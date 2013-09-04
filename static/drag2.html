@@ -125,13 +125,25 @@
 
             $('#your_showhide').show();
             //Shows or Hides the Averages
-            $( "#myonoffswitch" ).click(function() {
-                $('#averagecontainer').toggle();
-            });
 
-            $("#onoffswitch-user").click(function(){
-                $('#userplacement').toggle();
-            });
+            $( "#myonoffswitch" ).toggle(
+                function() {
+                    $('#userplacement').fadeTo("fast", 0.2);
+                },
+                function() {
+                    $('#userplacement').fadeTo("fast", 1.0);
+                }
+            );
+            // $( "#myonoffswitch" ).click(function() {
+            //     //$('#averagecontainer').toggle();
+            // });
+
+
+            $("#onoffswitch-user").toggle(
+                //$('#userplacement').toggle();
+                function() {$('#averagecontainer').fadeTo("fast", 0.2);},
+                function() {$('#averagecontainer').fadeTo("fast", 1.0);}
+            );
 
             for (var i = 0; i < companies.length; i++) {
                 if (companies[i].getX() < grid_width) {
@@ -189,71 +201,102 @@
     });
 
     function build_company_group_draggable(c_id) {
-        return _build_company_group(c_id * 30, company_options[c_id][0], c_id, true, company_options[c_id][1], 1, false, '');
+        return _build_company_group(c_id * 30, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
     }
 
     function build_company_group_hoverable(c_id) {
-        var group = _build_company_group(c_id * 30, company_options[c_id][0], c_id, false, company_options[c_id][1], 1, true, '');
+        var group = _build_company_group(c_id * 30, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
 
         group.on('mouseover', function() {
             document.body.style.cursor = '';
-
-            stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
-                child.setAttr('fill', '#CCC');
-            });
-            stage_menu_on_right.get('.company_logo_border').each(function(child, n) {
-                child.setAttr('stroke', '#CCC');
-            });
-            stage_draggable.get('.company_logo_text').each(function(child, n) {
-                child.setAttr('fill', '#CCC');
-            });
-            stage_draggable.get('.company_logo_border').each(function(child, n) {
-                child.setAttr('stroke', '#CCC');
-            });
-            stage_average.get('.company_logo_text').each(function(child, n) {
-                child.setAttr('fill', '#CCC');
-            });
-            stage_average.get('.company_logo_border').each(function(child, n) {
-                child.setAttr('stroke', '#CCC');
-            });
-
-            group.get('.company_logo_text').each(function(child, n) {
-                child.setAttr('fill', group.getAttr('real_color'));
-            });
-            group.get('.company_logo_border').each(function(child, n) {
-                child.setAttr('stroke', group.getAttr('real_color'));
-            });
-
-            stage_menu_on_right.batchDraw();
-            stage_draggable.batchDraw();
-            stage_average.batchDraw();
+            _gray_all_the_groups();
+            _restore_color_to_group(group);
         });
-
+        group.on('mouseleave', function() {
+            group.getParent().getChildren().each(function(child, n) {
+                _restore_color_to_group(child);
+            });
+        });
         return group;
     }
 
-    function build_company_group_average(c_id) {
-        return _build_company_group(0, company_options[c_id][0] + ' Avg', c_id, false, company_options[c_id][1], 3, false, 'bold');
+    function _gray_all_the_groups() {
+        stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
+            child.setAttr('fill', '#CCC');
+        });
+        stage_menu_on_right.get('.company_logo_border').each(function(child, n) {
+            child.setAttr('stroke', '#CCC');
+        });
+        stage_draggable.get('.company_logo_text').each(function(child, n) {
+            child.setAttr('fill', '#CCC');
+        });
+        stage_draggable.get('.company_logo_border').each(function(child, n) {
+            child.setAttr('stroke', '#CCC');
+        });
+        stage_average.get('.company_logo_text').each(function(child, n) {
+            child.setAttr('fill', '#CCC');
+        });
+        stage_average.get('.company_logo_border').each(function(child, n) {
+            child.setAttr('stroke', '#CCC');
+        });
     }
 
-    function _build_company_group(y, c_name, c_id, draggable, comp_color,stroke_width, is_hoverable, bold) {
+    function _restore_color_to_group(group) {
+        var real_color = group.getAttr('real_color');
+        var clazz = group.getAttr('name');
+
+        group.get('.company_logo_text').each(function(child, n) {
+            child.setAttr('fill', real_color);
+        });
+        group.get('.company_logo_border').each(function(child, n) {
+            child.setAttr('stroke', real_color);
+        });
+
+        if (stage_draggable.get('.' + clazz)[0]) {
+            stage_draggable.get('.' + clazz)[0].get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', real_color);
+            });
+            stage_draggable.get('.' + clazz)[0].get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', real_color);
+            });
+        }
+        if (stage_average.get('.' + clazz)[0]) {
+            stage_average.get('.' + clazz)[0].get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', real_color);
+            });
+            stage_average.get('.' + clazz)[0].get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', real_color);
+            });
+        }
+
+        stage_menu_on_right.batchDraw();
+        stage_draggable.batchDraw();
+        stage_average.batchDraw();
+    }
+
+    function build_company_group_average(c_id) {
+        return _build_company_group(0, company_options[c_id][0], company_options[c_id][0] + ' Avg', c_id, false, company_options[c_id][1], 3, 'bold');
+    }
+
+    function _build_company_group(y, class_name, company_name, c_id, draggable, comp_color,stroke_width, bold) {
         var group = new Kinetic.Group({
             x: grid_width,
             y: y,
             draggable: draggable,
             id: c_id,
             real_color: comp_color,
+            name: class_name,
         });
 
         var simpleText = new Kinetic.Text({
             x: 5,
             y: 30,
-            text: c_name,
+            text: company_name,
             fontSize: 12,
             fontFamily: 'Helvetica, Arial',
             fontStyle: bold,
             fill: comp_color,
-            name: 'company_logo_text'
+            name: 'company_logo_text',
         });
 
         var border = new Kinetic.Rect({
@@ -264,7 +307,7 @@
             fill: "#fff",
             stroke: comp_color,
             strokeWidth: stroke_width,
-            name: 'company_logo_border'
+            name: 'company_logo_border',
         });
 
         group.add(border);
@@ -306,21 +349,18 @@
     });
 
     stage_average = new Kinetic.Stage ({
-
         container: 'averagecontainer',
         width: 600,
         height: total_height,
     });
 
     stage_draggable = new Kinetic.Stage ({
-
         container: 'userplacement',
         width: 600,
         height: total_height,
     });
 
     stage_menu_on_right = new Kinetic.Stage ({
-
         container: 'nondraggable',
         width: 600,
         height: total_height,
@@ -341,7 +381,7 @@
         layer_nondraggable.add(c);
     }
 
-    stage.add(layer_background);
+    stage_draggable.add(layer_background);
     stage_draggable.add(layer);
     stage_menu_on_right.add(layer_nondraggable);
 
