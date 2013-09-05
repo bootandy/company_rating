@@ -62,12 +62,16 @@ canvas {
 }
 
 #text_chart {
-    font-size: .71em;
+    font-size: 0.72em;
     position: absolute;
-    margin-top: 10px;
+    margin-top: 5px;
     font-family: sans-serif;
 
     margin-left:500px; 
+}
+
+#text_chart span {
+    font-weight: bold;
 }
 
 .save_button {
@@ -248,61 +252,48 @@ canvas {
     font-family: sans-serif;
 }
 
-#showpercentage_fb{
+#showpercentage_fb, #showpercentage_tw, #showpercentage_gm, 
+#showpercentage_db,#showpercentage_az, #showpercentage_eb {
+    
     position: absolute;
-    margin-top: -430px;
     margin-left: 500px;
     width: 100px;
-    display: none;
+}
+
+#showpercentage_fb{
+    
+    margin-top: -405px;
 }
 
 #showpercentage_tw{
-    position: absolute;
-    margin-top: -390px;
-    margin-left: 500px;
-    width: 100px;
-    display: none;
+
+    margin-top: -345px;
 }
 
 #showpercentage_gm{
-    position: absolute;
-    margin-top: -350px;
-    margin-left: 500px;
-    width: 100px;
-    display: none;
 
+    margin-top: -285px;
 }
 
 #showpercentage_db{
-    position: absolute;
-    margin-top: -215px;
-    margin-left: 500px;
-    width: 100px;
-    height: 10px;
-    display: none;
-
+   
+    margin-top: -225px;
 }
 
 #showpercentage_az{
-    position: absolute;
-    margin-top: -165px;
-    margin-left: 500px;
-    width: 100px;
-    display: none;
 
+    margin-top: -165px;
 }
 
 #showpercentage_eb{
-    position: absolute;
-    margin-top: -105px;
-    margin-left: 500px;
-    width: 100px;
-    display: none;
 
+    margin-top: -105px;
 }
 
 .showpercent {
+
     position: static;
+    display: none;
 }
 
 .simple {

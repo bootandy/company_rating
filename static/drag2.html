@@ -153,7 +153,7 @@
             var c_ids = [];
 
             //Text Changes when the user clicks on submit
-            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below your input vs. average.";
+            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below  your <span> input vs. average </span>.";
 
             //Shows the trend lines when the user clicks on submit
             $('#trend').show();
@@ -172,12 +172,8 @@
             //Shows or Hides the Averages
 
             //Shows the percentage when the user clicks submit
-            $('#showpercentage_fb').show();
-            $('#showpercentage_tw').show();
-            $('#showpercentage_gm').show();
-            $('#showpercentage_db').show();
-            $('#showpercentage_az').show();
-            $('#showpercentage_eb').show();
+            $('.showpercent').show();
+            
 
             $( "#myonoffswitch" ).toggle(
                 function() {
@@ -200,12 +196,17 @@
             );
 
             for (var i = 0; i < companies.length; i++) {
+                
                 if (companies[i].getX() < grid_width) {
-                    data.push( { "x": companies[i].getX(), "y": companies[i].getY(), "c": String(companies[i].getId()) } );
+                    data.push( { "x": companies[i].getX(), "y": companies[i].getY(), "c": String(companies[i].getId()) } ); 
+                    
+                    } else data.push( { "x": grid_width+1, "y": grid_width+1, "c": String(companies[i].getId()) } ); 
                     c_ids.push(String(companies[i].getId()));
                     // console.log(companies[i].getY(), companies[i].getId());
 
-                }
+                //}
+
+
             }
 
 
@@ -252,8 +253,8 @@
                         c.setY(results[i].avgy);
                         average_layer.add(c);
 
-                        console.log(i);
-                        console.log(results[i]);
+                        // console.log(i);
+                        // console.log(results[i]);
                     }
 
                 }
@@ -271,75 +272,43 @@
 
             var average_data = data['result'];
 
-          /* 
-             Working out the perecentage for how simple 
-             they think it is compared to the average
-          */
-
-            // var average_x = String(average_data[0].avgx);
-            // var x = companies[0].getX();
-            // var simple = Math.round(((x - average_x)/grid_width)*100);
-            // // document.getElementById(simple_text).innerHTML = simple + '%';
-
-
-            // /* 
-            // Working out the perecentage for how powerful 
-            // they think it is compared to the average
-            // */
-
-            //var average_y = String(average_data[0].avgy);
-            //var y = companies[0].getY();
-            //var power = Math.round(((average_y - y)/grid_width)*100);
-            // document.getElementById(power_text).innerHTML = power + '%';
-
-            //console.log(companies[0].getId());
-            // console.log(average_data[0].avgy );
-            // console.log(average_data[1]._id);
-
             for (var i = 0; i < companies.length; i++) {
-                if (companies[i].getX() < grid_width) {
-                    // console.log('companyyyy');
-                    // console.log(companies[i].getId());
                     
-                    var comp_id = companies[i].getId();
-                    var x = companies[i].getX();
-                    var y = companies[i].getY();
+                var comp_id = companies[i].getId();
+                var x = companies[i].getX();
+                var y = companies[i].getY();
 
-                    // console.log(x);
-                    // console.log(y);
-
-                     for (var j = 0; j < average_data.length; j++){
+                for (var j = 0; j < average_data.length; j++) {
+                    
+                    var average_id = average_data[j]._id;
+                    
+                    if (comp_id == average_id) {
 
                         var average_x = average_data[j].avgx;
                         var average_y = average_data[j].avgy;
-                        var average_id = average_data[j]._id;
                         
-                        var power = Math.round(((average_y - y)/grid_width)*100);
-                        var simple = Math.round(((x - average_x)/grid_width)*100);
-                        
-                        // console.log( "power" );
-                        // console.log( power );
+                        if (companies[i].getX() < grid_width) {
 
-                        // update display
-                        $($('#' + average_id + ' p')[0]).html(simple + ' %');
-                        $($('#' + average_id + ' p')[1]).html(power + ' %');
-                         // console.log(average_id);
-                         // console.log(average_x);
-                         // console.log(average_y);
+                            var power = Math.round(((average_y - y)/449)*100);
+                            var simple = Math.round(((x - average_x)/449)*100);
+                            $($('#' + comp_id + ' p')[0]).html(simple + '%');
+                            $($('#' + comp_id + ' p')[1]).html(power + '%');
+                        
+                        } 
+                        else{
+
+                            var power = "n/a";
+                            var simple = " ";
+                            $($('#' + comp_id + ' p')[0]).html(simple);
+                            $($('#' + comp_id + ' p')[1]).html(power);
+
+                        }                        
                     }
                 }
             }
             
-
-
-        
-
-
         }
-    function update_display_value(element_name, new_value)
-    {
-        $(element_name).html(new_value);
-    }
+
 
    //End of document ready
     });
