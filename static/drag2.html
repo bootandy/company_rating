@@ -26,25 +26,12 @@
 
 
     <div id="average_showhide">
-
-        <div class="onoffswitch">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-            <label class="onoffswitch-label" for="myonoffswitch">
-                <div class="onoffswitch-inner"></div>
-                <div class="onoffswitch-switch"></div>
-            </label>
-        </div>
+            <a href="#" id="myonoffswitch">hide averages</a>
     </div>
 
-    <div id="your_showhide">
-        <div class="onoffswitch-user">
-            <input type="checkbox" name="onoffswitch-user" class="onoffswitch-checkbox-user" id="onoffswitch-user" checked>
-            <label class="onoffswitch-label-user" for="onoffswitch-user">
-                <div class="onoffswitch-inner-user"></div>
-                <div class="onoffswitch-switch-user"></div>
-            </label>
-        </div>
 
+    <div id="your_showhide">
+            <a href="#" id="onoffswitch-user">hide my input</a>
     </div>
 
     <button class='save_button'>Submit</button>
@@ -175,11 +162,15 @@
             $('.showpercent').show();
             
 
+
+            //Hides and shows the averages on the grid.
             $( "#myonoffswitch" ).toggle(
                 function() {
+                    $(this).text('show averages');
                     $('#averagecontainer').fadeTo("fast", 0.2);
                 },
                 function() {
+                    $(this).text('hide averages');
                     $('#averagecontainer').fadeTo("fast", 1.0);
                 }
             );
@@ -187,12 +178,19 @@
             //     //$('#averagecontainer').toggle();
             // });
             
-
-
+            
+            //Hides and shows the users placement on the grid.
             $("#onoffswitch-user").toggle(
                 //$('#userplacement').toggle();
-                function() {$('#userplacement').fadeTo("fast", 0.2);},
-                function() {$('#userplacement').fadeTo("fast", 1.0);}
+                function() {
+                    $(this).text('show my input');
+                    $('#userplacement').fadeTo("fast", 0.2);
+                },
+                
+                function() {
+                    $(this).text('hide my input');
+                    $('#userplacement').fadeTo("fast", 1.0);
+                }
             );
 
             for (var i = 0; i < companies.length; i++) {
