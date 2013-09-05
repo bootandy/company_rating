@@ -15,8 +15,9 @@
       <div id="userplacement"></div>
       <div id="averagecontainer"></div>
       <div id="nondraggable"></div>
-
     </div>
+
+
 
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
@@ -47,6 +48,50 @@
     </div>
 
     <button class='save_button'>Submit</button>
+
+<div class="showpercent">
+    <div id= "showpercentage_fb">
+        <div id="1" >
+            <p id="fb-simple" class="simple"></p>
+            <p id="fb-power" class="power"></p>
+        </div>
+    </div>
+
+    <div id="showpercentage_tw">
+        <div id="2" class="tw_percent">
+            <p id="tw-simple" class="simple"></p>
+            <p id="tw-power" class="power"></p>
+        </div>
+    </div>
+    
+    <div id="showpercentage_gm">    
+        <div id="3" class="gm_percent">
+            <p id="gm-simple" class="simple"></p>
+            <p id="gm-power" class="power"></p>
+        </div>
+    </div>
+    
+    <div id="showpercentage_db">    
+        <div id="4" class="db_percent">
+            <p id="db-simple" class="simple"></p>
+            <p id="db-power" class="power"></p>
+        </div>
+    </div>
+    
+    <div id="showpercentage_az">    
+        <div id="5" class="az_percent">
+            <p id="az-simple" class="simple"></p>
+            <p id="az-power" class="power"></p>
+        </div>
+    </div>
+    
+    <div id="showpercentage_eb">    
+        <div id="6" class="eb_percent">
+            <p id="eb-simple" class="simple"></p>
+            <p id="eb-power" class="power"></p>
+        </div>
+    </div>
+</div>
 
     <div id="email">
         <p>Enter your email address, and we'll send you <br/> a download link, when we've compiled all the data</p>
@@ -108,7 +153,7 @@
             var c_ids = [];
 
             //Text Changes when the user clicks on submit
-            document.getElementById("text_chart").innerHTML = "Mouseover to highlight";
+            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below your input vs. average.";
 
             //Shows the trend lines when the user clicks on submit
             $('#trend').show();
@@ -126,31 +171,45 @@
             $('#your_showhide').show();
             //Shows or Hides the Averages
 
+            //Shows the percentage when the user clicks submit
+            $('#showpercentage_fb').show();
+            $('#showpercentage_tw').show();
+            $('#showpercentage_gm').show();
+            $('#showpercentage_db').show();
+            $('#showpercentage_az').show();
+            $('#showpercentage_eb').show();
+
             $( "#myonoffswitch" ).toggle(
                 function() {
-                    $('#userplacement').fadeTo("fast", 0.2);
+                    $('#averagecontainer').fadeTo("fast", 0.2);
                 },
                 function() {
-                    $('#userplacement').fadeTo("fast", 1.0);
+                    $('#averagecontainer').fadeTo("fast", 1.0);
                 }
             );
             // $( "#myonoffswitch" ).click(function() {
             //     //$('#averagecontainer').toggle();
             // });
+            
 
 
             $("#onoffswitch-user").toggle(
                 //$('#userplacement').toggle();
-                function() {$('#averagecontainer').fadeTo("fast", 0.2);},
-                function() {$('#averagecontainer').fadeTo("fast", 1.0);}
+                function() {$('#userplacement').fadeTo("fast", 0.2);},
+                function() {$('#userplacement').fadeTo("fast", 1.0);}
             );
 
             for (var i = 0; i < companies.length; i++) {
                 if (companies[i].getX() < grid_width) {
                     data.push( { "x": companies[i].getX(), "y": companies[i].getY(), "c": String(companies[i].getId()) } );
                     c_ids.push(String(companies[i].getId()));
+                    // console.log(companies[i].getY(), companies[i].getId());
+
                 }
             }
+
+
+
 
             // Save these positions
             $.ajax ({
@@ -170,6 +229,7 @@
                     data: $.toJSON(c_ids),
                 }).done(function(result2) {
                     display_averages( result2 );
+                    calculatepercentages( result2 );
                 });
 
             });
@@ -182,14 +242,20 @@
             average_layer.remove();
             average_layer = new Kinetic.Layer();
 
+            // console.log(results);
+
             for (var i = 0; i < results.length; i++) {
                 if (results[i]._id > 0 && results[i]._id < 7) {
                     var c = build_company_group_average(results[i]._id)
                     if (c != null) {
-                        c.setX(results[i].avgx);
+                        c.setX(results[i].avgx);                
                         c.setY(results[i].avgy);
                         average_layer.add(c);
+
+                        console.log(i);
+                        console.log(results[i]);
                     }
+
                 }
             }
             stage_average.add(average_layer);
@@ -197,15 +263,98 @@
         }
         var average_layer = new Kinetic.Layer();
 
+        
+
+
+
+        function calculatepercentages(data){
+
+            var average_data = data['result'];
+
+          /* 
+             Working out the perecentage for how simple 
+             they think it is compared to the average
+          */
+
+            // var average_x = String(average_data[0].avgx);
+            // var x = companies[0].getX();
+            // var simple = Math.round(((x - average_x)/grid_width)*100);
+            // // document.getElementById(simple_text).innerHTML = simple + '%';
+
+
+            // /* 
+            // Working out the perecentage for how powerful 
+            // they think it is compared to the average
+            // */
+
+            //var average_y = String(average_data[0].avgy);
+            //var y = companies[0].getY();
+            //var power = Math.round(((average_y - y)/grid_width)*100);
+            // document.getElementById(power_text).innerHTML = power + '%';
+
+            //console.log(companies[0].getId());
+            // console.log(average_data[0].avgy );
+            // console.log(average_data[1]._id);
+
+            for (var i = 0; i < companies.length; i++) {
+                if (companies[i].getX() < grid_width) {
+                    // console.log('companyyyy');
+                    // console.log(companies[i].getId());
+                    
+                    var comp_id = companies[i].getId();
+                    var x = companies[i].getX();
+                    var y = companies[i].getY();
+
+                    // console.log(x);
+                    // console.log(y);
+
+                     for (var j = 0; j < average_data.length; j++){
+
+                        var average_x = average_data[j].avgx;
+                        var average_y = average_data[j].avgy;
+                        var average_id = average_data[j]._id;
+                        
+                        var power = Math.round(((average_y - y)/grid_width)*100);
+                        var simple = Math.round(((x - average_x)/grid_width)*100);
+                        
+                        // console.log( "power" );
+                        // console.log( power );
+
+                        // update display
+                        $($('#' + average_id + ' p')[0]).html(simple + ' %');
+                        $($('#' + average_id + ' p')[1]).html(power + ' %');
+                         // console.log(average_id);
+                         // console.log(average_x);
+                         // console.log(average_y);
+                    }
+                }
+            }
+            
+
+
+        
+
+
+        }
+    function update_display_value(element_name, new_value)
+    {
+        $(element_name).html(new_value);
+    }
+
    //End of document ready
     });
+    
+    
+
+
+
 
     function build_company_group_draggable(c_id) {
-        return _build_company_group(c_id * 30, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
+        return _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
     }
 
     function build_company_group_hoverable(c_id) {
-        var group = _build_company_group(c_id * 30, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
+        var group = _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
 
         group.on('mouseover', function() {
             document.body.style.cursor = '';
@@ -229,15 +378,20 @@
         });
         stage_draggable.get('.company_logo_text').each(function(child, n) {
             child.setAttr('fill', '#CCC');
+            child.setAttr('visible', false);
+
         });
         stage_draggable.get('.company_logo_border').each(function(child, n) {
             child.setAttr('stroke', '#CCC');
+            child.setAttr('visible', false);
         });
         stage_average.get('.company_logo_text').each(function(child, n) {
             child.setAttr('fill', '#CCC');
+            child.setAttr('visible', false);
         });
         stage_average.get('.company_logo_border').each(function(child, n) {
             child.setAttr('stroke', '#CCC');
+            child.setAttr('visible', false);
         });
     }
 
@@ -247,25 +401,33 @@
 
         group.get('.company_logo_text').each(function(child, n) {
             child.setAttr('fill', real_color);
+            child.setAttr('visible', true);
+
         });
         group.get('.company_logo_border').each(function(child, n) {
             child.setAttr('stroke', real_color);
+            child.setAttr('visible', true);
+
         });
 
         if (stage_draggable.get('.' + clazz)[0]) {
             stage_draggable.get('.' + clazz)[0].get('.company_logo_text').each(function(child, n) {
                 child.setAttr('fill', real_color);
+                child.setAttr('visible', true);
             });
             stage_draggable.get('.' + clazz)[0].get('.company_logo_border').each(function(child, n) {
                 child.setAttr('stroke', real_color);
+                child.setAttr('visible', true);
             });
         }
         if (stage_average.get('.' + clazz)[0]) {
             stage_average.get('.' + clazz)[0].get('.company_logo_border').each(function(child, n) {
                 child.setAttr('stroke', real_color);
+                child.setAttr('visible', true);
             });
             stage_average.get('.' + clazz)[0].get('.company_logo_text').each(function(child, n) {
                 child.setAttr('fill', real_color);
+                child.setAttr('visible', true);
             });
         }
 
@@ -275,7 +437,12 @@
     }
 
     function build_company_group_average(c_id) {
-        return _build_company_group(0, company_options[c_id][0], company_options[c_id][0] + ' Avg', c_id, false, company_options[c_id][1], 3, 'bold');
+        return _build_company_group(0, company_options[c_id][0], 
+                company_options[c_id][0] + ' Avg', c_id, 
+                false, 
+                company_options[c_id][1], 
+                3, 
+                'bold');
     }
 
     function _build_company_group(y, class_name, company_name, c_id, draggable, comp_color,stroke_width, bold) {

@@ -30,8 +30,7 @@
 
     font-size: .8em;
     font-family: sans-serif;
-    margin-left: 500px;
-    margin-top: -110px;
+    margin-left: 400px;
     position: absolute;
     display: none;
 }
@@ -56,16 +55,18 @@ canvas {
     display: block;
 }
 
-#hide_show, #text_chart {
+#hide_show {
     
     font-size: .8em;
     font-family: sans-serif;
 }
 
 #text_chart {
-
+    font-size: .71em;
     position: absolute;
     margin-top: 10px;
+    font-family: sans-serif;
+
     margin-left:500px; 
 }
 
@@ -188,7 +189,7 @@ canvas {
 #average_showhide {
     margin-left: 500px;
     position: absolute;
-    margin-top: -80px;
+    margin-top: 0;
     display: none;
 }
 
@@ -237,3 +238,78 @@ canvas {
 
     color: #aaa;
 }
+
+#showpercentage_fb p , #showpercentage_tw p , #showpercentage_gm p , 
+#showpercentage_db p ,#showpercentage_az p, #showpercentage_eb p  {
+    
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 0.8em;
+    font-family: sans-serif;
+}
+
+#showpercentage_fb{
+    position: absolute;
+    margin-top: -430px;
+    margin-left: 500px;
+    width: 100px;
+    display: none;
+}
+
+#showpercentage_tw{
+    position: absolute;
+    margin-top: -390px;
+    margin-left: 500px;
+    width: 100px;
+    display: none;
+}
+
+#showpercentage_gm{
+    position: absolute;
+    margin-top: -350px;
+    margin-left: 500px;
+    width: 100px;
+    display: none;
+
+}
+
+#showpercentage_db{
+    position: absolute;
+    margin-top: -215px;
+    margin-left: 500px;
+    width: 100px;
+    height: 10px;
+    display: none;
+
+}
+
+#showpercentage_az{
+    position: absolute;
+    margin-top: -165px;
+    margin-left: 500px;
+    width: 100px;
+    display: none;
+
+}
+
+#showpercentage_eb{
+    position: absolute;
+    margin-top: -105px;
+    margin-left: 500px;
+    width: 100px;
+    display: none;
+
+}
+
+.showpercent {
+    position: static;
+}
+
+.simple {
+    color: #2A2459;
+}
+
+.power {
+    color: #317ED6;
+}
+
