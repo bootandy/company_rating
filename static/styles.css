@@ -26,27 +26,37 @@
 
 }
 
-#your_showhide, #average_showhide {
-
-   
-    margin-left: 500px;
-    margin-top: -20px;
+#your_showhide{
+  
+    margin-left: 370px;
     position: absolute;
     display: none;
-
+    margin-top: 7px;
 }
 
-#your_showhide a, #average_showhide a {
+#average_showhide {
+    margin-left: 490px;
+    position: absolute;
+    margin-top: 7px;
+    display: none;
+}
+
+#your_showhide a, #myonoffswitch{
 
     font-size: .875em;
     font-family: sans-serif;
     text-decoration: none;
-    color: #337B8A;
+    color: #999;
+    border: 3px solid #ccc;
+    padding: 3px 10px;
+    border-radius: 10px;
 }
 
 #your_showhide a:hover , #average_showhide a:hover {
 
-    color: #66ACBA;
+    color: #777;
+    border-color: #66ACBA;
+
 }
 
 
@@ -144,12 +154,7 @@ canvas {
 
 
 
-#average_showhide {
-    margin-left: 500px;
-    position: absolute;
-    margin-top: 0;
-    display: none;
-}
+
 
 #email {
     float: left;
