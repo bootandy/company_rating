@@ -287,8 +287,15 @@
                         
                         if (companies[i].getX() < grid_width) {
 
-                            var power = Math.round(((average_y - y)/449)*100);
-                            var simple = Math.round(((x - average_x)/449)*100);
+                            console.log("x", companies[i].getX()-45, companies[i].getId());
+                            console.log("y",companies[i].getY()+20, companies[i].getId());
+                            console.log("avgx",(average_data[j].avgx)-45, average_data[j]._id);
+                            console.log("avgy",(average_data[j].avgy)+20, average_data[j]._id);
+
+
+                            var simple = Math.round(((x - average_x)/445)*100);
+                            var power = Math.round(((average_y - y)/430)*100);
+                            
                             $($('#' + comp_id + ' p')[0]).html(simple + '%');
                             $($('#' + comp_id + ' p')[1]).html(power + '%');
                         
@@ -484,9 +491,8 @@
 
     stage_average = new Kinetic.Stage ({
         container: 'averagecontainer',
-        width: 450,
-        height: 455,
-        marginleft: 100,
+        width: 600,
+        height: total_height,
     });
 
     stage_draggable = new Kinetic.Stage ({
