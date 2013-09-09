@@ -16,8 +16,15 @@
 
 #averagecontainer {
 
+    position: absolute;
     margin-top: -504px;
     display: none;
+}
+
+#averagecontainer .kineticjs-content {
+
+    margin-left: 45px;
+    margin-top: 5px;
 }
 
 #userplacement {
