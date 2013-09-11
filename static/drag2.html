@@ -150,7 +150,6 @@
             //Shows the toggle to display averages on the grid
             $('#average_showhide').show();
 
-            $('#averagecontainer').show();
             //show email form field
             $('#email').show();
 
@@ -266,6 +265,8 @@
 
                 }
             }
+            
+            stage_draggable.add(average_layer);
             stage_average.add(average_layer);
 
         }
@@ -340,15 +341,11 @@
 
         group.on('mouseover', function() {
             document.body.style.cursor = '';
-            
-           if ($('.save_button').data('clicked')) {
            
+           //Checks if the button had been clicked 
+           if ($('.save_button').data('clicked')) {
                 _gray_all_the_groups();
-
-           }    else {
-
-                _gray_onlydraggable();
-            }
+           } 
 
             _restore_color_to_group(group);
         });
@@ -380,17 +377,38 @@
         return group;
     }
 
-    function _gray_onlydraggable() {
 
-        stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
-            child.setAttr('fill', '#CCC');
-        });
-        stage_menu_on_right.get('.company_logo_border').each(function(child, n) {
-            child.setAttr('stroke', '#CCC');
-        });
+    function build_company_group_average(c_id) {
         
-    }
+        var group = _build_company_group(0, company_options[c_id][0], company_options[c_id][0] + ' Avg', c_id, false, company_options[c_id][1], 3, 'bold');
 
+        
+        group.on('mouseover', function() {
+            document.body.style.cursor = '';
+            _gray_all_the_groups();
+            _restore_color_to_group(group);
+        });
+
+        group.on('mouseleave', function() {
+            group.getParent().getChildren().each(function(child, n) {
+                _restore_color_to_group(child);
+            });
+        });
+
+
+        return group;
+
+
+
+
+
+        // return _build_company_group(0, company_options[c_id][0], 
+        //         company_options[c_id][0] + ' Avg', c_id, 
+        //         false, 
+        //         company_options[c_id][1], 
+        //         3, 
+        //         'bold');
+    }
 
     function _gray_all_the_groups() {
         stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
@@ -400,20 +418,21 @@
             child.setAttr('stroke', '#CCC');
         });
         stage_draggable.get('.company_logo_text').each(function(child, n) {
-            child.setAttr('fill', '#CCC');
+            //child.setAttr('fill', '#CCC');
             child.setAttr('visible', false);
 
         });
         stage_draggable.get('.company_logo_border').each(function(child, n) {
-            child.setAttr('stroke', '#CCC');
+            //child.setAttr('stroke', '#CCC');
             child.setAttr('visible', false);
         });
+
         stage_average.get('.company_logo_text').each(function(child, n) {
-            child.setAttr('fill', '#CCC');
+            //child.setAttr('fill', '#CCC');
             child.setAttr('visible', false);
         });
         stage_average.get('.company_logo_border').each(function(child, n) {
-            child.setAttr('stroke', '#CCC');
+            //child.setAttr('stroke', '#CCC');
             child.setAttr('visible', false);
         });
     }
@@ -471,14 +490,7 @@
         stage_average.batchDraw();
     }
 
-    function build_company_group_average(c_id) {
-        return _build_company_group(0, company_options[c_id][0], 
-                company_options[c_id][0] + ' Avg', c_id, 
-                false, 
-                company_options[c_id][1], 
-                3, 
-                'bold');
-    }
+    
 
     function _build_company_group(y, class_name, company_name, c_id, draggable, comp_color,stroke_width, bold) {
         var group = new Kinetic.Group({
