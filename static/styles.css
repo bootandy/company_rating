@@ -19,6 +19,8 @@
     position: absolute;
     margin-top: -504px;
     display: none;
+    width: 500px;
+
 }
 
 
@@ -26,6 +28,7 @@
 #userplacement {
 
     margin-top: -504px;
+    width: 500px;
 
 }
 

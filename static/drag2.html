@@ -12,9 +12,10 @@
 
     <div id="chart">
       <div id="container"></div>
-      <div id="userplacement"></div>
       <div id="averagecontainer"></div>
       <div id="nondraggable"></div>
+      <div id="userplacement"></div>
+
     </div>
 
 
@@ -136,6 +137,7 @@
     $(document).ready(function() {
 
         $('.save_button').click(function(){
+            $(this).data('clicked', true);
             var data = [];
             var c_ids = [];
 
@@ -233,6 +235,13 @@
 
             });
 
+             for(var row in company_options) {
+
+
+            var c = build_company_group_hoverable(row);
+            layer.add(c);
+    }
+
 
         });
 
@@ -287,10 +296,10 @@
                         
                         if (companies[i].getX() < grid_width) {
 
-                            console.log("x", companies[i].getX()-45, companies[i].getId());
-                            console.log("y",companies[i].getY()+20, companies[i].getId());
-                            console.log("avgx",(average_data[j].avgx)-45, average_data[j]._id);
-                            console.log("avgy",(average_data[j].avgy)+20, average_data[j]._id);
+                            // console.log("x", companies[i].getX()-45, companies[i].getId());
+                            // console.log("y",companies[i].getY()+20, companies[i].getId());
+                            // console.log("avgx",(average_data[j].avgx)-45, average_data[j]._id);
+                            // console.log("avgy",(average_data[j].avgy)+20, average_data[j]._id);
 
 
                             var simple = Math.round(((x - average_x)/445)*100);
@@ -315,6 +324,8 @@
         }
 
 
+
+
    //End of document ready
     });
     
@@ -324,12 +335,38 @@
 
 
     function build_company_group_draggable(c_id) {
-        return _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
+       // return _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
+        var group =  _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
+
+        group.on('mouseover', function() {
+            document.body.style.cursor = '';
+            
+           if ($('.save_button').data('clicked')) {
+           
+                _gray_all_the_groups();
+
+           }    else {
+
+                _gray_onlydraggable();
+            }
+
+            _restore_color_to_group(group);
+        });
+
+        group.on('mouseleave', function() {
+            group.getParent().getChildren().each(function(child, n) {
+                _restore_color_to_group(child);
+            });
+        });
+
+        return group;    
+
     }
 
     function build_company_group_hoverable(c_id) {
         var group = _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
 
+        
         group.on('mouseover', function() {
             document.body.style.cursor = '';
             _gray_all_the_groups();
@@ -342,6 +379,18 @@
         });
         return group;
     }
+
+    function _gray_onlydraggable() {
+
+        stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
+            child.setAttr('fill', '#CCC');
+        });
+        stage_menu_on_right.get('.company_logo_border').each(function(child, n) {
+            child.setAttr('stroke', '#CCC');
+        });
+        
+    }
+
 
     function _gray_all_the_groups() {
         stage_menu_on_right.get('.company_logo_text').each(function(child, n) {
@@ -404,6 +453,18 @@
                 child.setAttr('visible', true);
             });
         }
+
+        if (stage_menu_on_right.get('.' + clazz)[0]) {
+            stage_menu_on_right.get('.' + clazz)[0].get('.company_logo_border').each(function(child, n) {
+                child.setAttr('stroke', real_color);
+                child.setAttr('visible', true);
+            });
+            stage_menu_on_right.get('.' + clazz)[0].get('.company_logo_text').each(function(child, n) {
+                child.setAttr('fill', real_color);
+                child.setAttr('visible', true);
+            });
+        }
+
 
         stage_menu_on_right.batchDraw();
         stage_draggable.batchDraw();
