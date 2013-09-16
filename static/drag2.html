@@ -113,13 +113,55 @@
 
     <div id="thoughts-blog-simple_powerful">
 
-        <p>Thanks for your input! We're looking forward to posting the results, once we get a good number of them. Help us with that by sharing.</p>
+        <div class="Introduction-thoughts-simple_powerful">
+            <p>Thanks for your input! We're looking forward to posting the results, once we get a good number of them. Help us with that by sharing.</p>
 
-        <p> Meanwhile, here are some quick notes about my opinions on those 6 products. This will also show how deeply personal perceptions are on this topic, once you carefully think about it: </p>
-
+            <p> Meanwhile, here are some quick notes about my opinions on those 6 products. This will also show how deeply personal perceptions are on this topic, once you carefully think about it: </p>
+        </div>
 
         <div class="facebook">
+            <div class="image-thoughts"><img src="img/fb-nest.png" alt="fb-nest" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">Facebook:</span> step back and look at all one can do with it: from photo-sharing to discussions to stalking to messaging to groups, fan pages etc: one may now take it for granted, but it is rather powerful. The main thing I expect and is missing is a better way to find content that is relevant to you. <br/><br/> Is it simple, though? I think it is fiendishly complex (who sees what, why do I [not] see what I [don't] see, what is happening that I am missing), but it is excellent in channelling its users into what quickly become ingrained, comfortable habits that one takes for granted. I bet they differ vastly from person to person. <br/><br/> It's a maze, but it lets you find your own cozy niche. Verdict: <span class="thoughts-italics"> 80% powerful, 30% simple </span> </p>
+        </div>
+        
+        </div>
 
+        <div class="twitter">
+            <div class="image-thoughts"><img src="img/tw-bottle.png" alt="tw-bottle" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">Twitter:</span> sit may be powerful in scope, but not in features: it can be used for different purposes, but there are only really at most a dozen of actions on it. Is it simple? Yes, in theory. In practice, there are significant barriers to engagement, which may be why so many people complain that they don't get it. If you ever get it, and if it responds to a need you have, beware as it can become addictive. A bit like whisky perhaps? Verdict: <span class="thoughts-italics"> 30% powerful, 50% simple </span> </p>
+        </div>
+        
+        </div>
+
+        <div class="gmail">
+            <div class="image-thoughts"><img src="img/gm-dog.png" alt="gm-dog" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">Gmail:</span> as an email client, it offers plenty of clever features, from chat, to filters, to labels (never mind the automated ones are so-so), to great spam filter, to embedded native and external apps, etc. However, some features I'd like are missing, from downloading a list of emails to easily searching filters. And it's mostly quite simple, though it seems to unnecessarily complicate things by giving you too many choices, which is why, I think, many people end up with thousands of unread emails (if it's you: nothing wrong with that!). A loyal, clever, slightly over-eager pet. Verdict: <span class="thoughts-italics"> 60% powerful, 70% simple </span> </p>
+        </div>
+        </div>
+
+        <div class="dropbox">
+            <div class="image-thoughts"><img src="img/db-box.png" alt="db-box" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">Dropbox:</span> slike Twitter, the epitome of the simple product. And it is, indeed, very simple (although not without some quirks). It can do essentially one very useful thing, which is why it has been described as a feature, not a product. (Evernote as its diametrical opposite?) Solid like... err... a box? Verdict: <span class="thoughts-italics"> 20% powerful, 90% simple </span> </p>
+        </div>
+        </div>
+
+        <div class="amazon">
+            <div class="image-thoughts"><img src="img/az-gears.png" alt="az-gears" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">Amazon:</span> it is rather feature-rich, with its sophisticated, product-specific filters, its ratings and reviews and reviews of reviews, its quintessential recommendation engine, its offering from a variety of sellers. It can feel a little chaotic as you search, and is not the prettiest, but the purchase funnel clearly works. A well-oiled machine. Verdict: <span class="thoughts-italics"> 70% powerful, 60% simple </span> </p>
+        </div>
+        </div>
+
+        <div class="ebay">
+            <div class="image-thoughts"><img src="img/eb-basket.png" alt="eb-basket" /></div>
+            <div class="text-thoughts"> 
+            <p><span class="thoughts-title">eBay:</span> I must confess, I am not enough of a user of eBay to have a well-informed opinion about it, so I follow my own pro-tip and I'll leave it out. </p>
+        </div>
+        </div>
 
     </div>
 
@@ -349,7 +391,7 @@
 
     function build_company_group_draggable(c_id) {
        // return _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
-        var group =  _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
+        var group =  _build_company_group(c_id * 65, company_options[c_id][0] , company_options[c_id][0], c_id, true, company_options[c_id][1], 1, '');
 
         group.on('mouseover', function() {
             document.body.style.cursor = '';
@@ -373,7 +415,7 @@
     }
 
     function build_company_group_hoverable(c_id) {
-        var group = _build_company_group(c_id * 60, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
+        var group = _build_company_group(c_id * 65, company_options[c_id][0] , company_options[c_id][0], c_id, false, company_options[c_id][1], 1, '');
 
         
         group.on('mouseover', function() {

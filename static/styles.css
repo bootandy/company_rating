@@ -230,27 +230,27 @@ canvas {
 
 #showpercentage_tw{
 
-    margin-top: -345px;
+    margin-top: -340px;
 }
 
 #showpercentage_gm{
 
-    margin-top: -285px;
+    margin-top: -275px;
 }
 
 #showpercentage_db{
    
-    margin-top: -225px;
+    margin-top: -210px;
 }
 
 #showpercentage_az{
 
-    margin-top: -165px;
+    margin-top: -145px;
 }
 
 #showpercentage_eb{
 
-    margin-top: -105px;
+    margin-top: -80px;
 }
 
 .showpercent {
@@ -267,3 +267,62 @@ canvas {
     color: #317ED6;
 }
 
+
+
+#thoughts-blog-simple_powerful {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: .8em;
+    margin-top: 130px;
+    margin-left: 40px;
+    width: 570px;
+    text-align: justify;
+}
+
+.thoughts-title {
+    font-weight: bold;
+}
+
+.image-thoughts {
+
+    float: left;
+    width: 60px;
+}
+
+.image-thoughts img{
+
+    border-radius: 10px;
+}
+
+
+.text-thoughts {
+
+    margin-left: 65px;
+}
+
+.facebook .thoughts-title {
+    color: #3B5998;
+}
+
+.twitter .thoughts-title {
+    color: #4099FF;
+}
+
+.gmail .thoughts-title {
+    color: #dd1812;
+}
+
+.dropbox .thoughts-title {
+    color: #3d4944;
+}
+
+.amazon .thoughts-title {
+    color: #e47911;
+}
+
+.ebay .thoughts-title {
+    color: #ffcc00;
+}
+.thoughts-italics { 
+
+    font-style: italic;
+}
