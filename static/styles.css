@@ -90,13 +90,25 @@ canvas {
     font-family: sans-serif;
 }
 
-#text_chart {
+#text_chart, #tool_tip {
     font-size: 0.72em;
     position: absolute;
     margin-top: 5px;
     font-family: sans-serif;
-
     margin-left:500px; 
+}
+
+#tool_tip {
+    display: none;
+    background-color: #415c60;
+    color: #fff;
+    margin-top: -443px;
+    margin-left: 610px;
+    padding: 1px 2.5px;
+    font-family: monospace;
+    font-size: .7em;
+    border-radius: 100px;
+    text-decoration: none;
 }
 
 #text_chart span {
@@ -153,13 +165,6 @@ canvas {
 
 }
 
-
-
-
-
-
-
-
 #email {
     float: left;
     margin-top: 30px;
@@ -169,7 +174,13 @@ canvas {
     display: none;
 }
 
-#email_form {
+#average_power_simple {
+    position: absolute;
+    margin-top: 130px;
+    margin-left: 10px;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: .8em;
+    font-weight: bold;
 }
 
 .required_mail {
@@ -272,11 +283,16 @@ canvas {
 #thoughts-blog-simple_powerful {
     font-family: "Helvetica", "Arial", sans-serif;
     font-size: .8em;
-    margin-top: 130px;
+    margin-top: 160px;
     margin-left: 10px;
-    width: 600px;
+    width: 580px;
     text-align: justify;
     display: none;
+}
+
+#thoughts-blog-simple_powerful div {
+
+    padding-bottom: 5px;
 }
 
 .thoughts-title {
@@ -337,5 +353,20 @@ canvas {
     width: 600px;
     margin-left: 10px;
     font-style: italic;
-
 }
+
+.ui-tooltip {
+
+    background: #415c60;
+    padding: 10px 5px;
+    color: white;
+    font: normal .8em "Helvetica", "Arial", sans-serif;
+    float:left;
+    border-radius: 20px;
+    width: 150px;
+    position: absolute;
+    opacity: .9;
+    color: #fff;
+}
+
+

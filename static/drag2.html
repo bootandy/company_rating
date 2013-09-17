@@ -4,13 +4,13 @@
     <script src="kinetic.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
     <script src="jquery.json-2.4.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="detectBrowser.js" type="text/javascript"></script>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <div id="text_chart"> Drag to position on to chart</div>
-
     <div id="chart">
       <div id="container"></div>
       <div id="averagecontainer"></div>
@@ -18,12 +18,17 @@
       <div id="userplacement"></div>
 
     </div>
+    <a href="#" title="By placing the product in the chart, you're scoring it between 0% and
+                        100% on both dimensions. Here we show you how you differ from the
+                        average for each product: read it as, say 'I see it as 10% simpler,
+                        and 20% less powerful, than the average'." id="tool_tip">i</a>
 
     <div id="mobile-device">
 
         <p>The interactive chart is currently not supported on mobiles or tablets, please return to the blog when you are using a desktop/laptop. In the meantime why not read our thoughts on each of the products?</p>
     
-    </div>    
+    </div>
+
 
     <div id="table_image">
      <img src="img/table.png" alt="table"/>
@@ -40,7 +45,11 @@
             <a href="#" id="onoffswitch-user">hide my input</a>
     </div>
 
-    <button class='save_button'>submit</button>
+    <button class='save_button'>Submit</button>
+
+    <div id="average_power_simple">
+        On average, you scored products as <span id="average_simple"> X% </span> simple and <span id="average_powerful"> X% </span> powerful
+    </div>
 
 <div class="showpercent">
     <div id= "showpercentage_fb">
@@ -127,7 +136,7 @@
         <div class="facebook">
             <div class="image-thoughts"><img src="img/fb-nest.png" alt="fb-nest" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Facebook:</span> step back and look at all one can do with it: from photo-sharing to discussions to stalking to messaging to groups, fan pages etc: one may now take it for granted, but it is rather powerful. The main thing I expect and is missing is a better way to find content that is relevant to you. <br/><br/> Is it simple, though? I think it is fiendishly complex (who sees what, why do I [not] see what I [don't] see, what is happening that I am missing), but it is excellent in channelling its users into what quickly become ingrained, comfortable habits that one takes for granted. I bet they differ vastly from person to person. <br/><br/> It's a maze, but it lets you find your own cozy niche. Verdict: <span class="thoughts-italics"> 80% powerful, 30% simple </span> </p>
+            <p><span class="thoughts-title">Facebook:</span> one may now take it for granted, but it is rather powerful: you can do anything from photo-sharing to discussions to stalking to messaging to groups, fan pages, etc. The main feature I expect but is missing is better content search.<br/><br/> Is it simple? I think it is fiendishly complex (who sees what, why do I [not] see what I [don't] see, what is happening that I am missing). However, it can lead its users into what soon become ingrained, comfortable yet very personal habits.<br/><br/> It's a maze, but it lets you find your own cozy niche. Verdict: <span class="thoughts-italics"> 80% powerful, 30% simple </span> </p>
         </div>
         
         </div>
@@ -135,7 +144,7 @@
         <div class="twitter">
             <div class="image-thoughts"><img src="img/tw-bottle.png" alt="tw-bottle" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Twitter:</span> sit may be powerful in scope, but not in features: it can be used for different purposes, but there are only really at most a dozen of actions on it. Is it simple? Yes, in theory. In practice, there are significant barriers to engagement, which may be why so many people complain that they don't get it. If you ever get it, and if it responds to a need you have, beware as it can become addictive. A bit like whisky perhaps? Verdict: <span class="thoughts-italics"> 30% powerful, 50% simple </span> </p>
+           <p><span class="thoughts-title">Twitter:</span> it is powerful in scope, but not in features: it can be used for different purposes, but there are only really at most a dozen of actions on it. <br/><br/>It is supposed to be simple. But in practice, there are significant barriers to engagement, which may be why many people complain that they don't get Twitter. If you ever get it, and if it responds to a need you have, beware as it can become addictive. <br/><br/>A bit like whisky perhaps? Verdict: <span class="thoughts-italics"> 30% powerful, 50% simple </span> </p>
         </div>
         
         </div>
@@ -143,21 +152,22 @@
         <div class="gmail">
             <div class="image-thoughts"><img src="img/gm-dog.png" alt="gm-dog" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Gmail:</span> as an email client, it offers plenty of clever features, from chat, to filters, to labels (never mind the automated ones are so-so), to great spam filter, to embedded native and external apps, etc. However, some features I'd like are missing, from downloading a list of emails to easily searching filters. And it's mostly quite simple, though it seems to unnecessarily complicate things by giving you too many choices, which is why, I think, many people end up with thousands of unread emails (if it's you: nothing wrong with that!). A loyal, clever, slightly over-eager pet. Verdict: <span class="thoughts-italics"> 60% powerful, 70% simple </span> </p>
+            <p><span class="thoughts-title">Gmail:</span> as an email client, it offers plenty of clever features, from chat, to filters, to labels, to embedded native and external apps, etc. However, some features I'd like are missing, from downloading a list of emails to easily searching filters. <br/><br/>It's quite simple, though it occasionally seems to complicate things by giving you too many choices. <br/><br/>A loyal, clever, slightly over-eager pet. Verdict: <span class="thoughts-italics"> 60% powerful, 70% simple </span> </p>
+
         </div>
         </div>
 
         <div class="dropbox">
             <div class="image-thoughts"><img src="img/db-box.png" alt="db-box" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Dropbox:</span> slike Twitter, the epitome of the simple product. And it is, indeed, very simple (although not without some quirks). It can do essentially one very useful thing, which is why it has been described as a feature, not a product. (Evernote as its diametrical opposite?) Solid like... err... a box? Verdict: <span class="thoughts-italics"> 20% powerful, 90% simple </span> </p>
+            <p><span class="thoughts-title">Dropbox:</span> like Twitter, it is perceived as the ultimate simple product. And, well, it is very simple (although not without some quirks). <br/><br/>It isn't powerful, though: it can do essentially one very useful thing, which is why it has been described as a feature, not a product. Evernote seems its diametrical opposite. <br/><br/>Solid like... err... a box? Verdict: <span class="thoughts-italics"> 20% powerful, 90% simple </span> </p>
         </div>
         </div>
 
         <div class="amazon">
             <div class="image-thoughts"><img src="img/az-gears.png" alt="az-gears" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Amazon:</span> it is rather feature-rich, with its sophisticated, product-specific filters, its ratings and reviews and reviews of reviews, its quintessential recommendation engine, its offering from a variety of sellers. It can feel a little chaotic as you search, and is not the prettiest, but the purchase funnel clearly works. A well-oiled machine. Verdict: <span class="thoughts-italics"> 70% powerful, 60% simple </span> </p>
+            <p><span class="thoughts-title">Amazon:</span> one may forget it, but it is rather feature-rich, with its sophisticated, product-specific filters, its ratings and reviews, and reviews of reviews, its well-known recommendation engine, its offering from a variety of sellers. And it has a clear purpose, which helps to make it simple. It can feel a little chaotic as you search, and is not the prettiest, but the purchase funnel is very effective. A well-oiled machine. Verdict: <span class="thoughts-italics"> 70% powerful, 60% simple </span> </p>
         </div>
         </div>
 
@@ -194,6 +204,11 @@
     }
 
     $(document).ready(function() {
+
+
+        $(function() {
+            $("#tool_tip").tooltip();
+        });
 
         if (jQuery.browser.mobile == true){
 
@@ -235,6 +250,7 @@
             //Shows the percentage when the user clicks submit
             $('.showpercent').show();
             
+            $('#tool_tip').show();
 
             $('#thoughts-blog-simple_powerful').show();
 
@@ -354,6 +370,9 @@
         function calculatepercentages(data) {
 
             var average_data = data['result'];
+            var simple_sum = 0;
+            var power_sum =0;
+            var count_sum = 0; 
 
             for (var i = 0; i < companies.length; i++) {
                     
@@ -381,9 +400,21 @@
                             var simple = Math.round(((x - average_x)/445)*100);
                             var power = Math.round(((average_y - y)/430)*100);
                             
+
+                            var simple_sum = simple_sum + simple;
+                            var power_sum = power_sum + power; 
+                            var count_sum = count_sum + 1;
+
+
+                             
+
                             $($('#' + comp_id + ' p')[0]).html(simple + '%');
                             $($('#' + comp_id + ' p')[1]).html(power + '%');
-                        
+                            
+                            //var average_simple_calc = Math.round(simple/simple_array.length);
+                            //console.log("Simple_normal", simple);
+                            //console.log(average_simple_calc);
+                            
                         } 
                         else{
 
@@ -392,11 +423,28 @@
                             $($('#' + comp_id + ' p')[0]).html(simple);
                             $($('#' + comp_id + ' p')[1]).html(power);
 
-                        }                        
+                        }
+
+
                     }
                 }
             }
-            
+
+            if (count_sum == 0) {
+
+                var count_sum = 1; 
+
+            }
+
+            var total_simple_average = Math.round((simple_sum/count_sum));
+            var total_power_average = Math.round((power_sum/count_sum));
+
+            document.getElementById("average_simple").innerHTML = total_simple_average+"%";
+            document.getElementById("average_powerful").innerHTML = total_power_average+"%";
+
+            console.log(total_simple_average);
+            console.log(total_power_average);
+            console.log(count_sum);
         }
 
 
