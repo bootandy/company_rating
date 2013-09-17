@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="text_chart"> Drag to position on to chart</div>
+    <div id="text_chart"> Drag the boxes to position on to chart</div>
     <div id="chart">
       <div id="container"></div>
       <div id="averagecontainer"></div>
@@ -48,7 +48,7 @@
     <button class='save_button'>Submit</button>
 
     <div id="average_power_simple">
-        On average, you scored products as <span id="average_simple"> X% </span> simple and <span id="average_powerful"> X% </span> powerful
+       Overall, you scored these products <span id="average_simple"> X% </span> simple and <span id="average_powerful"> X% </span> powerful
     </div>
 
 <div class="showpercent">
@@ -95,35 +95,7 @@
     </div>
 </div>
 
-    <div id="email">
-        <p>Enter your email address, and we'll send you <br/> a download link, when we've compiled all the data</p>
-        <script type="text/javascript">
-                var submitted = false;
-        </script>
-
-        <iframe name="hidden_iframe" id="hidden_iframe"
-
-            style="display:none;" onload="if (submitted)
-            {
-                window.location = '#';
-            }">
-
-        </iframe>
-
-        <form id="email_form" action="https://docs.google.com/spreadsheet/formResponse?formkey=dENQZXRIb0s1T2VEZDdCdzB4NlRtZ0E6MQ&amp;ifq" method="post"
-                  target="hidden_iframe" onsubmit="submitted = true;">
-
-            <div class="errorbox-good">
-                <input type="text" name="entry.0.single" value="" class="required_mail email" id="entry_0" placeholder="Enter your email address">
-                <input type="submit" name="submit" class="submit-button-sidebar " value="">
-
-            </div>
-
-                <input type="hidden" name="pageNumber" value="0">
-                <input type="hidden" name="backupCache" value="">
-
-        </form>
-    </div>
+    <div class="greyline"></div>
 
     <div id="thoughts-blog-simple_powerful">
 
@@ -167,7 +139,7 @@
         <div class="amazon">
             <div class="image-thoughts"><img src="img/az-gears.png" alt="az-gears" /></div>
             <div class="text-thoughts"> 
-            <p><span class="thoughts-title">Amazon:</span> one may forget it, but it is rather feature-rich, with its sophisticated, product-specific filters, its ratings and reviews, and reviews of reviews, its well-known recommendation engine, its offering from a variety of sellers. And it has a clear purpose, which helps to make it simple. It can feel a little chaotic as you search, and is not the prettiest, but the purchase funnel is very effective. A well-oiled machine. Verdict: <span class="thoughts-italics"> 70% powerful, 60% simple </span> </p>
+            <p><span class="thoughts-title">Amazon:</span> one may forget it, but it is rather feature-rich, with its sophisticated, product-specific filters, its ratings and reviews, and reviews of reviews, its well-known recommendation engine, its offering from a variety of sellers. <br/><br/>It also has a clear purpose, which helps to make it simple. It can feel a little chaotic as you search, and is not the prettiest, but the purchase funnel is very effective. <br/><br/>A well-oiled machine. Verdict: <span class="thoughts-italics"> 70% powerful, 60% simple </span> </p>
         </div>
         </div>
 
@@ -178,6 +150,38 @@
         </div>
         </div>
 
+    </div>
+
+    <div class="greyline"></div>
+
+    <div id="email">
+        <p>Enter your email address, and we'll send you a download link, when we've compiled all the data</p>
+        <script type="text/javascript">
+                var submitted = false;
+        </script>
+
+        <iframe name="hidden_iframe" id="hidden_iframe"
+
+            style="display:none;" onload="if (submitted)
+            {
+                window.location = '#';
+            }">
+
+        </iframe>
+
+        <form id="email_form" action="https://docs.google.com/spreadsheet/formResponse?formkey=dENQZXRIb0s1T2VEZDdCdzB4NlRtZ0E6MQ&amp;ifq" method="post"
+                  target="hidden_iframe" onsubmit="submitted = true;">
+
+            <div class="errorbox-good">
+                <input type="text" name="entry.0.single" value="" class="required_mail email" id="entry_0" placeholder="Enter your email address">
+                <input type="submit" name="submit" class="submit-button-sidebar " value="">
+
+            </div>
+
+                <input type="hidden" name="pageNumber" value="0">
+                <input type="hidden" name="backupCache" value="">
+
+        </form>
     </div>
 
 
@@ -230,7 +234,10 @@
             var c_ids = [];
 
             //Text Changes when the user clicks on submit
-            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below  your <span> input vs. average </span>.";
+            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below  your <span> input vs. average </span>";
+
+
+            $('.save_button').hide();
 
             //Shows the trend lines when the user clicks on submit
             $('#trend').show();
@@ -250,10 +257,11 @@
             //Shows the percentage when the user clicks submit
             $('.showpercent').show();
             
+            $('.greyline').show();
+
             $('#tool_tip').show();
 
             $('#thoughts-blog-simple_powerful').show();
-
 
             //Hides and shows the averages on the grid.
             $( "#myonoffswitch" ).toggle(
@@ -430,11 +438,15 @@
                 }
             }
 
-            if (count_sum == 0) {
+            if (count_sum == 0 || count_sum < 2) {
 
+                $('#average_power_simple').hide();
                 var count_sum = 1; 
 
+            } else if (count_sum > 2) {
+                $('#average_power_simple').show();
             }
+
 
             var total_simple_average = Math.round((simple_sum/count_sum));
             var total_power_average = Math.round((power_sum/count_sum));

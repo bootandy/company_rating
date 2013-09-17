@@ -32,14 +32,14 @@
 
 #your_showhide{
   
-    margin-left: 370px;
+    margin-left: 140px;
     position: absolute;
     display: none;
     margin-top: 7px;
 }
 
 #average_showhide {
-    margin-left: 490px;
+    margin-left: 290px;
     position: absolute;
     margin-top: 7px;
     display: none;
@@ -102,7 +102,7 @@ canvas {
     display: none;
     background-color: #415c60;
     color: #fff;
-    margin-top: -443px;
+    margin-top: -457px;
     margin-left: 610px;
     padding: 1px 2.5px;
     font-family: monospace;
@@ -166,21 +166,22 @@ canvas {
 }
 
 #email {
-    float: left;
-    margin-top: 30px;
-    margin-left: -290px;
+    margin-left: 10px;
+    margin-top: 20px;
     font-size: .8em;
     font-family: sans-serif;
     display: none;
+    position: absolute;
 }
 
 #average_power_simple {
     position: absolute;
-    margin-top: 130px;
+    margin-top: 45px;
     margin-left: 10px;
     font-family: "Helvetica", "Arial", sans-serif;
     font-size: .8em;
     font-weight: bold;
+    display: none;
 }
 
 .required_mail {
@@ -283,7 +284,7 @@ canvas {
 #thoughts-blog-simple_powerful {
     font-family: "Helvetica", "Arial", sans-serif;
     font-size: .8em;
-    margin-top: 160px;
+    margin-top: 0;
     margin-left: 10px;
     width: 580px;
     text-align: justify;
@@ -368,5 +369,16 @@ canvas {
     opacity: .9;
     color: #fff;
 }
+
+.greyline { 
+
+    position: relative;
+    background-color: #999999;
+    height: 1px;
+    width: 630px;
+    display: none;
+    margin-top: 70px;
+}
+
 
 
