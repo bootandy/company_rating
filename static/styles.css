@@ -273,9 +273,10 @@ canvas {
     font-family: "Helvetica", "Arial", sans-serif;
     font-size: .8em;
     margin-top: 130px;
-    margin-left: 40px;
-    width: 570px;
+    margin-left: 10px;
+    width: 600px;
     text-align: justify;
+    display: none;
 }
 
 .thoughts-title {
@@ -325,4 +326,16 @@ canvas {
 .thoughts-italics { 
 
     font-style: italic;
+}
+
+#mobile-device {
+
+    position: absolute;
+    display: none;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: .8em;
+    width: 600px;
+    margin-left: 10px;
+    font-style: italic;
+
 }
