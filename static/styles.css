@@ -102,8 +102,8 @@ canvas {
     display: none;
     background-color: #415c60;
     color: #fff;
-    margin-top: -457px;
-    margin-left: 610px;
+    margin-top: -442px;
+    margin-left: 620px;
     padding: 1px 2.5px;
     font-family: monospace;
     font-size: .7em;
@@ -379,6 +379,4 @@ canvas {
     display: none;
     margin-top: 70px;
 }
-
-
 

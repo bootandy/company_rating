@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="text_chart"> Drag the boxes to position on to chart</div>
+    <div id="text_chart"> Drag the boxes onto chart</div>
     <div id="chart">
       <div id="container"></div>
       <div id="averagecontainer"></div>
@@ -100,7 +100,7 @@
     <div id="thoughts-blog-simple_powerful">
 
         <div class="Introduction-thoughts-simple_powerful">
-            <p>Thanks for your input! We're looking forward to posting the results, once we get a good number of them. Help us with that by sharing.</p>
+            <p id="share_input">Thanks for your input! We're looking forward to posting the results, once we get a good number of them. Help us with that by sharing.</p>
 
             <p> Meanwhile, here are some quick notes about my opinions on those 6 products. This will also show how deeply personal perceptions are on this topic, once you carefully think about it: </p>
         </div>
@@ -216,15 +216,14 @@
 
         if (jQuery.browser.mobile == true){
 
-            $('#mobile-device').show();
-            $('#chart').show();
+            $('#mobile-device').show().css({"position": "absolute", "margin-top": "-550px"});
+            $('#chart').show().css("margin-top", "50px");
             $('#table_image').show();
             $('#text_chart').hide();
             $('.save_button').hide();
             $('.Introduction-thoughts-simple_powerful').hide();
-            $('#thoughts-blog-simple_powerful').show();
-
-
+            $('#thoughts-blog-simple_powerful').show().css("margin-top","0");
+            
         }
 
 
@@ -234,7 +233,7 @@
             var c_ids = [];
 
             //Text Changes when the user clicks on submit
-            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Displayed below  your <span> input vs. average </span>";
+            document.getElementById("text_chart").innerHTML = "Mouseover to highlight. <br/><br/> Below each product the difference between your input and the average";
 
 
             $('.save_button').hide();
@@ -438,15 +437,28 @@
                 }
             }
 
+            if (count_sum == 0) {
+
+
+            document.getElementById("share_input").innerHTML = "You didn't play with the chart. If you wanted to, please refresh the page, drag the boxes in the chart and click submit."
+            
+            $('#share_input').show();
+
+            }
+
+
             if (count_sum == 0 || count_sum < 2) {
 
                 $('#average_power_simple').hide();
-                var count_sum = 1; 
+
+                var count_sum = 1;
 
             } else if (count_sum > 2) {
                 $('#average_power_simple').show();
+
             }
 
+            
 
             var total_simple_average = Math.round((simple_sum/count_sum));
             var total_power_average = Math.round((power_sum/count_sum));
